@@ -1,6 +1,7 @@
-var Mongoose = require("mongoose");
+import type { Document } from "mongoose";
+const mongoose = require("mongoose");
 
-interface IListModel extends Mongoose.Document {
+interface IListModel extends Document {
     name: string;
     listId: number;
     userID: number;
@@ -8,4 +9,5 @@ interface IListModel extends Mongoose.Document {
     date: Date;
     budget: number;
 }
-export {IListModel};
+
+export { IListModel };

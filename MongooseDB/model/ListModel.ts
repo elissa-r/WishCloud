@@ -1,75 +1,57 @@
-import * as Mongoose from "mongoose";
-import {IListModel} from '../interfaces/IListModel';
+import mongoose, { Schema, Model, ConnectOptions } from "mongoose";
+import { IListModel } from "../interfaces/IListModel";
 
 class ListModel {
-    public schema:any;
-    public model:any;
-    public dbConnectionString:string;
+  public schema!: Schema;
+  public model!: Model<IListModel>;
+  private dbConnectionString: string;
 
-    public constructor(DB_CONNECTION_STRING:string) {
-        this.dbConnectionString = DB_CONNECTION_STRING;
-        this.createSchema();
-        this.createModel();
-    }
+  private constructor(DB_CONNECTION_STRING: string) {
+    this.dbConnectionString = DB_CONNECTION_STRING;
+    this.createSchema();
+  }
 
-    public createSchema() {
-        this.schema = new Mongoose.Schema(
-            {
-                name: String,
-                listId: Number,
-                userID: Number,
-                photoLink: String,
-                date: Date,
-                budget: Number
-            }, {collection: 'lists'}
-        );    
-    }
+  public static async init(DB_CONNECTION_STRING: string) {
+    const instance = new ListModel(DB_CONNECTION_STRING);
+    await instance.createModel();
+    return instance;
+  }
 
-    public async createModel() {
-        try {
-            await Mongoose.connect(this.dbConnectionString, {useNewUrlParser: true, useUnifiedTopology: true});
-            this.model = Mongoose.model<IListModel>("Lists", this.schema);
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
+  private createSchema() {
+    this.schema = new Schema({
+      name: String,
+      listId: Number,
+      userID: Number,
+      photoLink: String,
+      date: Date,
+      budget: Number
+    }, { collection: 'lists' });
+  }
 
-    public async retrieveAllLists(response:any) {
-        var query = this.model.find({});
-        // query.where("state");
-        // query.lt("B");
-        try {
-            const itemArray = await query.exec();
-            response.json(itemArray);
-        }
-        catch(e) {
-            console.error(e);
-        }
+  private async createModel() {
+    try {
+      await mongoose.connect(this.dbConnectionString);
+      this.model = mongoose.model<IListModel>("Lists", this.schema);
+    } catch (e) {
+      console.error("Failed to connect/create model:", e);
+      throw e;
     }
+  }
 
-    public async retrieveLists(response:any, value:number) {
-        var query = this.model.findOne({listId: value});
-        try {
-            const result = await query.exec();
-            response.json(result) ;
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
+  public async retrieveAllLists(response: any) {
+    const itemArray = await this.model.find({}).exec();
+    response.json(itemArray);
+  }
 
-    public async retrieveListCount(response:any) {
-        console.log("retrieve List Count ...");
-        var query = this.model.estimatedDocumentCount();
-        try {
-            const numberOfLists = await query.exec();
-            console.log("numberOfLists: " + numberOfLists);
-            response.json(numberOfLists);
-        }
-        catch (e) {
-            console.error(e);
-        }
-    }
+  public async retrieveLists(response: any, value: number) {
+    const result = await this.model.findOne({ listId: value }).exec();
+    response.json(result);
+  }
+
+  public async retrieveListCount(response: any) {
+    const numberOfLists = await this.model.estimatedDocumentCount().exec();
+    response.json(numberOfLists);
+  }
 }
-export {ListModel};
+
+export { ListModel };
