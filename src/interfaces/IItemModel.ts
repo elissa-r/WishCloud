@@ -1,6 +1,7 @@
-var Mongoose = require("mongoose");
+import type { Document } from "mongoose";
+const mongoose = require("mongoose");
 
-interface IItemModel extends Mongoose.Document {
+interface IItemModel extends Document {
     listId: number;
     item: [ {
         name: string;

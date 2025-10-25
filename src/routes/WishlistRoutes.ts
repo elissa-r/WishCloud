@@ -1,5 +1,5 @@
-import * as express from 'express';
-import { Wishlist } from '../models/Wishlist';
+import express from 'express';
+import { Wishlist } from '../models/WishlistModel';
 
 export const wishlistRouter = express.Router();
 
