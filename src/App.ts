@@ -1,10 +1,10 @@
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import * as cors from 'cors';
-import * as mongoose from 'mongoose';
-import { userRouter } from './routes/userRoutes';
-import { wishlistRouter } from './routes/wishListRoutes';
-import * as dotenv from 'dotenv';
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import { userRouter } from './routes/UserRoutes';
+import { wishlistRouter } from './routes/WishlistRoutes';
 
 dotenv.config();
 // App class to configure and run the Express application
