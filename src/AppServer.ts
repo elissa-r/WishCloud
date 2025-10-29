@@ -1,13 +1,23 @@
 import { App } from './App';
-import dotenv from 'dotenv';
-//import { connectDB } from './config/db';
+import * as dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 dotenv.config();
-//connectDB();
 
 const port = process.env.PORT || 3000;
 
-const server = new App().express;
-server.listen(port, () => {
-  console.log(`WishCloud server running on http://localhost:${port}`);
-});
+async function startServer() {
+  try {
+    await mongoose.connect(process.env.MONGO_URI!);
+    console.log('MongoDB connected');
+
+    const server = new App().express;
+    server.listen(port, () => {
+      console.log(`WishCloud server running on http://localhost:${port}`);
+    });
+  } catch (err) {
+    console.error('Failed to connect to MongoDB:', err);
+  }
+}
+
+startServer();

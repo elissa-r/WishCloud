@@ -1,0 +1,68 @@
+### Create a new user
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "name": "Ashleen",
+  "email": "ashleen@example.com"
+}
+### Create a new user
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "name": "Elissa",
+  "email": "Elissa@example.com"
+}
+
+### Get all users
+GET http://localhost:3000/api/users
+Accept: application/json
+
+### Create a new wishlist
+POST http://localhost:3000/api/wishlists
+Content-Type: application/json
+
+{
+  "name": "Birthday Wishlist",
+  "itemId": 101,
+  "photoLink": "https://example.com/image.jpg",
+  "price": 50,
+  "description": "Gold necklace",
+  "itemLink": "https://example.com/product",
+  "isReserved": false
+}
+
+### Create a new wishlist
+POST http://localhost:3000/api/wishlists
+Content-Type: application/json
+
+{
+  "name": "Holiday Wishlist",
+  "itemId": 103,
+  "photoLink": "https://example2.com/image.jpg",
+  "price": 100,
+  "description": "Silver necklace",
+  "itemLink": "https://example2.com/product",
+  "isReserved": true
+}
+
+### Get all wishlists
+GET http://localhost:3000/api/wishlists
+Accept: application/json
+
+### Get user by ID 
+# Using ID from post response, I am using id from 1st user created
+GET http://localhost:3000/api/users/690246330cb3310675741d6f
+Accept: application/json
+
+### Get wishlist by ID 
+# Using ID from post response, I am using id from 1st wishlist created
+GET http://localhost:3000/api/wishlists/690246490cb3310675741d74
+Accept: application/json
+
+### check in mongo db
+### mongosh
+### use wishcloud
+### db.users.find().pretty()
+### db.wishlists.find().pretty()
