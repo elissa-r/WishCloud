@@ -19,12 +19,12 @@ Content-Type: application/json
 GET http://localhost:3000/api/users
 Accept: application/json
 
-### Create a new wishlist
-POST http://localhost:3000/api/wishlists
+### Create a new item
+POST http://localhost:3000/api/items
 Content-Type: application/json
 
 {
-  "name": "Birthday Wishlist",
+  "name": "Neclace",
   "itemId": 101,
   "photoLink": "https://example.com/image.jpg",
   "price": 50,
@@ -33,32 +33,55 @@ Content-Type: application/json
   "isReserved": false
 }
 
+### Create a new item
+POST http://localhost:3000/api/items
+Content-Type: application/json
+
+{
+  "name": "Bracelet",
+  "itemId": 103,
+  "photoLink": "https://example2.com/image.jpg",
+  "price": 100,
+  "description": "Silver bracelet",
+  "itemLink": "https://example2.com/product",
+  "isReserved": true
+}
+
+### Get all items
+GET http://localhost:3000/api/items
+Accept: application/json
+
 ### Create a new wishlist
 POST http://localhost:3000/api/wishlists
 Content-Type: application/json
 
 {
-  "name": "Holiday Wishlist",
-  "itemId": 103,
-  "photoLink": "https://example2.com/image.jpg",
-  "price": 100,
-  "description": "Silver necklace",
-  "itemLink": "https://example2.com/product",
-  "isReserved": true
+  "name": "Birthday Wishlist",
+  "listId": 201,
+  "userID": 1,
+  "photoLink": "https://example.com/wishlist.jpg",
+  "date": "2023-12-01",
+  "budget": 500
 }
 
 ### Get all wishlists
 GET http://localhost:3000/api/wishlists
 Accept: application/json
 
+
 ### Get user by ID 
 # Using ID from post response, I am using id from 1st user created
 GET http://localhost:3000/api/users/690246330cb3310675741d6f
 Accept: application/json
 
+### Get item by ID 
+# Using ID from post response, I am using id from 1st item created
+GET http://localhost:3000/api/items/6903b6770a2980f9192a2ff3
+Accept: application/json
+
 ### Get wishlist by ID 
 # Using ID from post response, I am using id from 1st wishlist created
-GET http://localhost:3000/api/wishlists/690246490cb3310675741d74
+GET http://localhost:3000/api/wishlists/6903c3be9fae4ab686274579
 Accept: application/json
 
 ### check in mongo db

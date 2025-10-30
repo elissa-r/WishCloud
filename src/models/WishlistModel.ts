@@ -2,12 +2,11 @@ import mongoose from 'mongoose';
 
 const wishlistSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  itemId: { type: Number },
+  listId: { type: Number },
+  userID: { type: Number },
   photoLink: { type: String },
-  price: { type: Number },
-  description: { type: String },
-  itemLink: { type: String },
-  isReserved: { type: Boolean },
+  date: { type: Date },
+  budget: { type: Number },
 });
 
 export const Wishlist = mongoose.model('Wishlist', wishlistSchema);

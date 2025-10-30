@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { userRouter } from './routes/UserRoutes';
 import { wishlistRouter } from './routes/WishlistRoutes';
+import { itemRouter } from './routes/ItemRoutes';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -25,6 +26,7 @@ class App {
   private routes(): void {
     this.express.use('/api/users', userRouter);
     this.express.use('/api/wishlists', wishlistRouter);
+    this.express.use('/api/items', itemRouter);
   }
 
   private async database(): Promise<void> {
