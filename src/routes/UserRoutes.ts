@@ -4,19 +4,34 @@ import { Router } from 'express';
 
 export const userRouter = Router();
 
-// POST - create a new user
-userRouter.post('/', async (req, res) => {
+// Register
+userRouter.post("/", async (req, res) => {
   try {
-    console.log('Received POST /api/users:', req.body);
-    const newUser = new User(req.body);
-    await newUser.save();
-    res.status(201).json(newUser);
-  } catch (err) {
-    console.error('Error creating user:', err);
-    res.status(500).json({ message: 'Server error while creating user.' });
-  }
+    const { name, email, password } = req.body;
+    const existing = await User.findOne({ email });
+    if (existing) return res.status(400).json({ error: "User already exists" });
 
+    const user = new User({ name, email, password });
+    await user.save();
+    res.status(201).json(user);
+  } catch (err) {
+    console.error("Error creating user:", err);
+    res.status(500).json({ error: "Failed to register user" });
+  }
 });
+
+// Login
+userRouter.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email, password });
+    if (!user) return res.status(401).json({ error: "Invalid credentials" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: "Login failed" });
+  }
+});
+
 
 // GET - get all users
 userRouter.get('/', async (req, res) => {

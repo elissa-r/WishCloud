@@ -71,12 +71,12 @@ Accept: application/json
 
 ### Get user by ID 
 # Using ID from post response, I am using id from 1st user created
-GET http://localhost:3000/api/users/690246330cb3310675741d6f
+GET http://localhost:3000/api/users/6904148ba4d9f707a7655992
 Accept: application/json
 
 ### Get item by ID 
 # Using ID from post response, I am using id from 1st item created
-GET http://localhost:3000/api/items/6903b6770a2980f9192a2ff3
+GET http://localhost:3000/api/items/6903c48dbc7b3acfdeb99a64
 Accept: application/json
 
 ### Get wishlist by ID 
@@ -89,3 +89,5 @@ Accept: application/json
 ### use wishcloud
 ### db.users.find().pretty()
 ### db.wishlists.find().pretty()
+
+#"C:\Program Files\MongoDB\Server\8.2\bin\mongod.exe" --dbpath="C:\data\db" - to start mongo db server

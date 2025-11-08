@@ -40,3 +40,19 @@ wishlistRouter.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error while fetching wishlist.' });
   }
 });
+
+// GET - get wishlists by userID
+wishlistRouter.get('/user/:userID', async (req, res) => {
+  try {
+    const wishlists = await Wishlist.find({ userID: req.params.userID });
+    if (!wishlists || wishlists.length === 0) {
+      return res.status(200).json([]); // return empty array if none found
+    }
+    res.status(200).json(wishlists);
+  } catch (err) {
+    console.error('Error fetching wishlists for user:', err);
+    res.status(500).json({ message: 'Server error while fetching user wishlists.' });
+  }
+});
+
+
