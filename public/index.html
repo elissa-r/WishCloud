@@ -66,6 +66,15 @@
         place-items: center;
         min-height: calc(100vh - 72px);
       }
+      #registerBox {
+        display: none;
+      }
+      .auth-wrap.active #loginBox {
+        display: none;
+      }
+      .auth-wrap.active #registerBox {
+        display: block !important;
+      }
       .auth-card {
         width: 100%;
         max-width: 420px;
@@ -160,13 +169,13 @@
 
             <p class="switch-text">
               Don’t have an account?
-              <a href="#" id="goRegisterLink">Register here</a>
+              <a href="#" class="register-link">Register here</a>
             </p>
           </form>
         </div>
 
         <!-- Register -->
-        <div id="registerBox" class="d-hidden">
+        <div id="registerBox">
           <h2 class="auth-title">Create Account</h2>
           <form id="registerForm" novalidate>
             <div class="mb-3">
@@ -204,7 +213,7 @@
 
             <p class="switch-text">
               Already have an account?
-              <a href="#" id="goLoginLink">Login</a>
+              <a href="#" class="login-link">Login</a>
             </p>
           </form>
         </div>
