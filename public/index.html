@@ -220,7 +220,56 @@
       </div>
     </section>
 
-    <!-- Scripts -->
+    <!-- Firebase Auth Script -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { 
+        getAuth, 
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+      // Your Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyD3661DPM0WZyzIsr2mqNMTcB2TUgMeO_M",
+        authDomain: "wishcloud-bf5fe.firebaseapp.com",
+        projectId: "wishcloud-bf5fe",
+        storageBucket: "wishcloud-bf5fe.firebasestorage.app",
+        messagingSenderId: "499215872773",
+        appId: "1:499215872773:web:5a1e77580be9edef817d6c",
+        measurementId: "G-YXWE7LJJ0C"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Login Function
+      window.loginEmailPassword = async (email, password) => {
+        try {
+          const userCred = await signInWithEmailAndPassword(auth, email, password);
+          console.log("Logged in:", userCred.user);
+          window.location.href = "dashboard.html";
+        } catch (error) {
+          alert(error.message);
+          console.error(error);
+        }
+      };
+
+      // Register Function
+      window.registerEmailPassword = async (name, email, password) => {
+        try {
+          const userCred = await createUserWithEmailAndPassword(auth, email, password);
+          console.log("Registered:", userCred.user);
+
+          // Normally you'd save 'name' to Firestore. For now, redirect:
+          window.location.href = "dashboard.html";
+        } catch (error) {
+          alert(error.message);
+          console.error(error);
+        }
+      };
+    </script>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   </body>
