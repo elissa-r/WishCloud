@@ -6,6 +6,7 @@
 /build
 /**/*.js
 /**/*.js.map
+!/public/script.js
 
 # Logs
 npm-debug.log*
