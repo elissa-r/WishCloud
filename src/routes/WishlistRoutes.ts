@@ -27,19 +27,6 @@ wishlistRouter.get('/', async (req, res) => {
   }
 });
 
-// GET - get a wishlist by ID
-wishlistRouter.get('/:id', async (req, res) => {
-  try {
-    const wishlist = await Wishlist.findById(req.params.id);
-    if (!wishlist) {
-      return res.status(404).json({ message: 'Wishlist not found' });
-    }
-    res.status(200).json(wishlist);
-  } catch (err) {
-    console.error('Error fetching wishlist by ID:', err);
-    res.status(500).json({ message: 'Server error while fetching wishlist.' });
-  }
-});
 
 // GET - get wishlists by userID
 wishlistRouter.get('/user/:userID', async (req, res) => {
@@ -55,4 +42,16 @@ wishlistRouter.get('/user/:userID', async (req, res) => {
   }
 });
 
-
+// GET - get a wishlist by ID
+wishlistRouter.get('/:id', async (req, res) => {
+  try {
+    const wishlist = await Wishlist.findById(req.params.id);
+    if (!wishlist) {
+      return res.status(404).json({ message: 'Wishlist not found' });
+    }
+    res.status(200).json(wishlist);
+  } catch (err) {
+    console.error('Error fetching wishlist by ID:', err);
+    res.status(500).json({ message: 'Server error while fetching wishlist.' });
+  }
+});
