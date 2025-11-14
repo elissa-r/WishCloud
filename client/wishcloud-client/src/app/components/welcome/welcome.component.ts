@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,7 +10,6 @@ import { Router } from '@angular/router';
 export class WelcomeComponent {
   title = 'WishCloud';
   subtitle = 'Keep track of your wishlists in one place';
-  demoUserId = 'demo-user-1';
 
   constructor(private router: Router) {}
 
