@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { WishlistService } from '../../services/wishlist.service';
 import { Wishlist } from '../../models/wishlist.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wishlist-list',
@@ -26,8 +26,6 @@ export class WishlistListComponent implements OnInit {
     this.loading = true;
     this.errorMessage = '';
 
-    // For now: get all wishlists.
-    // You could change this to getWishlistsForUser('someUserId') later.
     this.wishlistService.getAllWishlists().subscribe({
       next: (data) => {
         this.wishlists = data;
