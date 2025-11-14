@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+//import { authRouter } from './routes/AuthRoutes';
 import { userRouter } from './routes/UserRoutes';
 import { wishlistRouter } from './routes/WishlistRoutes';
 import { itemRouter } from './routes/ItemRoutes';
@@ -25,6 +26,7 @@ class App {
   }
 
   private routes(): void {
+    //this.express.use('/api/auth', authRouter);
     this.express.use('/api/users', userRouter);
     this.express.use('/api/wishlists', wishlistRouter);
     this.express.use('/api/items', itemRouter);
