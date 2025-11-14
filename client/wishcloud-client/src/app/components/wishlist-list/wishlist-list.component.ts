@@ -43,3 +43,4 @@ export class WishlistListComponent implements OnInit {
     this.router.navigate(['/wishlists', wishlist._id]);
   }
 }
+

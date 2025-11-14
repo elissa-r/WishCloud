@@ -43,3 +43,4 @@ export class WishlistDetailComponent implements OnInit {
     });
   }
 }
+

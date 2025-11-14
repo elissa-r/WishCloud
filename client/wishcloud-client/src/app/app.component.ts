@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'wishcloud-client';
+
+  constructor() {
+    console.log('AppComponent constructor ran ✅');
+  }
 }
