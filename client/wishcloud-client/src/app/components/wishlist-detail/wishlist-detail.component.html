@@ -1,0 +1,20 @@
+<div class="detail-container">
+  <div *ngIf="loading">Loading wishlist...</div>
+  <div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <div *ngIf="wishlist && !loading">
+    <h2>{{ wishlist.name }}</h2>
+
+    <img
+      *ngIf="wishlist.photoLink"
+      [src]="wishlist.photoLink"
+      [alt]="wishlist.name"
+    />
+
+    <p *ngIf="wishlist.budget">Budget: {{ wishlist.budget | currency }}</p>
+    <p *ngIf="wishlist.date">Date: {{ wishlist.date | date }}</p>
+
+    <p><strong>List ID:</strong> {{ wishlist.listId }}</p>
+    <p><strong>User ID:</strong> {{ wishlist.userID }}</p>
+  </div>
+</div>
