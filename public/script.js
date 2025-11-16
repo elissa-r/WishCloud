@@ -27,6 +27,7 @@ if (iconClose) {
         wrapper.classList.remove('active-popup');
     });
 }
+
 //code to connect the login information to firebase
 document.addEventListener("DOMContentLoaded", () => {
   //login form
@@ -53,52 +54,3 @@ document.addEventListener("DOMContentLoaded", () => {
     window.registerEmailPassword(name, email, password);
   });
 });
-/**
-// Login
-document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  try {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      console.log("Logged in user UID:", data.uid);
-      window.location.href = "dashboard.html";
-    } else {
-      alert(data.error);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-});
-
-// Register
-document.getElementById("registerForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const email = document.getElementById("regEmail").value;
-  const password = document.getElementById("regPassword").value;
-
-  try {
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      console.log("Registered user UID:", data.uid);
-      window.location.href = "dashboard.html";
-    } else {
-      alert(data.error);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-});
-*/
