@@ -1,23 +1,21 @@
-//the code below is from the example github
-
 import { Observable } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
-import { TodoproxyService } from '../todoproxy.service';
+import { WishlistproxyService } from '../wishlistproxy.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'app-todotasks',
-  templateUrl: './todotasks.component.html',
-  styleUrl: './todotasks.component.css'
+  selector: 'app-items',
+  templateUrl: './items.component.html',
+  styleUrl: './items.component.css'
 })
-export class TodotasksComponent {
+export class ItemsComponent {
   name: string = "";
   listId: string;
   listItems: any;
 
   constructor(
     private route: ActivatedRoute,
-    private list$: TodoproxyService
+    private list$: WishlistproxyService
   ) { 
     this.listId = route.snapshot.params['id'];
     this.list$.getItems(this.listId).subscribe((res: any) => {

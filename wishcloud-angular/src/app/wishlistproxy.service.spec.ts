@@ -1,15 +1,13 @@
-//the code below is from the example github
-
 import { TestBed } from '@angular/core/testing';
 
-import { TodoproxyService } from './todoproxy.service';
+import { WishlistproxyService } from './wishlistproxy.service';
 
-describe('TodoproxyService', () => {
-  let service: TodoproxyService;
+describe('WishlistproxyService', () => {
+  let service: WishlistproxyService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TodoproxyService);
+    service = TestBed.inject(WishlistproxyService);
   });
 
   it('should be created', () => {

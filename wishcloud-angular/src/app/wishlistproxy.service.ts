@@ -1,12 +1,10 @@
-//below is the code from the example github
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TodoproxyService {
+export class WishlistproxyService {
 
   hostUrl:string = 'http://localhost:8080/';
 

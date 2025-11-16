@@ -1,20 +1,18 @@
-//the code below is from the example github
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TodolistsComponent } from './todolists.component';
+import { WishlistsComponent } from './wishlists.component';
 
-describe('TodolistsComponent', () => {
-  let component: TodolistsComponent;
-  let fixture: ComponentFixture<TodolistsComponent>;
+describe('WishlistsComponent', () => {
+  let component: WishlistsComponent;
+  let fixture: ComponentFixture<WishlistsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TodolistsComponent]
+      declarations: [WishlistsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(TodolistsComponent);
+    fixture = TestBed.createComponent(WishlistsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

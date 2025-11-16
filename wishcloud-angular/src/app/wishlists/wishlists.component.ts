@@ -1,23 +1,21 @@
-//the code below is from the example github
-
 import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
-import { TodoproxyService } from '../todoproxy.service';
+import { WishlistproxyService } from '../wishlistproxy.service';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Router} from '@angular/router';
 
 @Component({
-  selector: 'app-todolists',
-  templateUrl: './todolists.component.html',
-  styleUrl: './todolists.component.css'
+  selector: 'app-wishlists',
+  templateUrl: './wishlists.component.html',
+  styleUrl: './wishlists.component.css'
 })
-export class TodolistsComponent {
+export class WishlistsComponent {
 
   displayedColumns: string[] = ['name', 'description', 'due', 'state', 'owner'];
   dataSource = new MatTableDataSource<any>();
 
-  constructor(private router: Router, proxy$: TodoproxyService) {
+  constructor(private router: Router, proxy$: WishlistproxyService) {
     proxy$.getListsIndex().subscribe( (result: any[]) => 
     {
       this.dataSource = new MatTableDataSource<any>(result);

@@ -1,16 +1,14 @@
-//the code below is from the example github
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app.routing.module';
 import { AppComponent } from './app.component';
-import { WelcomepageComponent } from './welcomepage/welcomepage.component';
-import { TodolistsComponent } from './todolists/todolists.component';
-import { TodotasksComponent } from './todotasks/todotasks.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { WishlistsComponent } from './wishlists/wishlists.component';
+import { ItemsComponent } from './items/items.component';
 
-import { TodoproxyService } from './todoproxy.service';
+import { WishlistproxyService } from './wishlistproxy.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import {MatTableModule} from '@angular/material/table';
@@ -23,9 +21,9 @@ import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomepageComponent,
-    TodolistsComponent,
-    TodotasksComponent
+    WelcomeComponent,
+    WishlistsComponent,
+    ItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +36,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatMenuModule,
     MatButtonModule
   ],
-  providers: [TodoproxyService, provideAnimationsAsync()],
+  providers: [WishlistproxyService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
