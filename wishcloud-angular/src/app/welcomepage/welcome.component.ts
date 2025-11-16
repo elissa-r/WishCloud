@@ -1,25 +1,12 @@
 //the code below is from the example github
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 
-import { WelcomepageComponent } from './welcomepage.component';
+@Component({
+  selector: 'app-welcomepage',
+  templateUrl: './welcomepage.component.html',
+  styleUrl: './welcomepage.component.css'
+})
+export class WelcomepageComponent {
 
-describe('WelcomepageComponent', () => {
-  let component: WelcomepageComponent;
-  let fixture: ComponentFixture<WelcomepageComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [WelcomepageComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(WelcomepageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+}
