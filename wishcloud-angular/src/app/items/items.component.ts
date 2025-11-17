@@ -2,11 +2,14 @@ import { Observable } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
 import { WishlistproxyService } from '../wishlistproxy.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
-  styleUrl: './items.component.css'
+  styleUrl: './items.component.css',
+  standalone: true,
+  imports: [CommonModule]
 })
 export class ItemsComponent {
   name: string = "";

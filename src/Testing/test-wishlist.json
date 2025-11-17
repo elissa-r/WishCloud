@@ -1,9 +1,0 @@
-{
-  "name": "Perfume",
-  "itemId": 1,
-  "photoLink": "https://example.com/perfume.jpg",
-  "price": 60,
-  "description": "Chanel perfume for birthday",
-  "itemLink": "https://example.com/shop",
-  "isReserved": false
-}
