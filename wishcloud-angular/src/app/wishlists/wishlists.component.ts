@@ -1,33 +1,99 @@
-import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { WishlistproxyService } from '../wishlistproxy.service';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import { Router} from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-wishlists',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './wishlists.component.html',
   styleUrl: './wishlists.component.css'
 })
+
 export class WishlistsComponent {
+  // Filled with data from backend
+  lists: any[] = [];
 
-  displayedColumns: string[] = ['name', 'description', 'due', 'state', 'owner'];
-  dataSource = new MatTableDataSource<any>();
+  // Default image if a list has no photo
+  defaultImage =
+    'https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg?auto=compress&cs=tinysrgb&w=800';
 
-  constructor(private router: Router, proxy$: WishlistproxyService) {
-    proxy$.getListsIndex().subscribe( (result: any[]) => 
-    {
-      this.dataSource = new MatTableDataSource<any>(result);
-      //this.dataSource.sort = this.sort;
-      console.log("retrieved data from server.");
+  // New wishlist form fields
+  newListName = '';
+  newListPhoto = '';
+  newListBudget: number | null = null;
+  newListDate = '';
+
+  constructor(
+    private router: Router,
+    private proxy$: WishlistproxyService,
+    private auth: AuthService
+  ) {
+    const userID = this.auth.getCurrentUserId();
+
+    if (!userID) {
+      console.error('No logged-in user; redirecting to home.');
+      this.lists = [];
+      this.router.navigate(['/']);  // back to welcome/login
+      return;
+    }
+
+    this.proxy$.getListsIndex(userID).subscribe({
+      next: (result: any[]) => {
+        this.lists = result;
+        console.log('retrieved lists from server for user', userID, result);
+      },
+      error: (err) => {
+        console.error('Failed to load wishlists for user', userID, err);
+        this.lists = [];
+      }
     });
   }
 
-  ngOnInit() {
+  // Called when you click a card
+  goToList(list: any): void {
+    // adjust property name if your backend uses something else (e.g. list._id)
+    this.router.navigate(['/list', list.id]);
   }
 
-  clickEvent(): void {
-    this.router.navigate(['']);
+  // Called when "Save Wishlist" is clicked in the modal
+  onCreateWishlist(event: Event): void {
+    event.preventDefault();
+
+    const userID = this.auth.getCurrentUserId();
+    if (!userID) {
+      console.error('No logged-in user; cannot create wishlist.');
+      // You could also show a UI message here if you want.
+      return;
+    }
+
+    const payload = {
+      name: this.newListName,
+      photoUrl: this.newListPhoto || null,
+      budget: this.newListBudget || null,
+      date: this.newListDate || null,
+      userID: userID
+    };
+
+    this.proxy$.createWishlist(payload).subscribe({
+      next: (saved) => {
+        console.log('Saved wishlist:', saved);
+
+        // Add immediately to the UI so it appears without refresh
+        this.lists.push(saved);
+
+        // Reset modal form
+        this.newListName = '';
+        this.newListPhoto = '';
+        this.newListBudget = null;
+        this.newListDate = '';
+      },
+      error: (err) => {
+        console.error('Failed to save wishlist:', err);
+      }
+    });
   }
 }

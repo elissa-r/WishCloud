@@ -1,0 +1,39 @@
+.btn-pink {
+  background-color: #ff8fb1;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+}
+
+.btn-pink:hover {
+  background-color: #ff73a1;
+  color: white;
+}
+
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card img {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  object-fit: cover;
+  height: 200px;
+}
+
+.modal-content {
+  border-radius: 1rem;
+}
+
+.form-control:focus {
+  border-color: #ff8fb1;
+  box-shadow: 0 0 5px #ff8fb1;
+}

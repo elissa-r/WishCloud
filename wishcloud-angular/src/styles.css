@@ -1,4 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --pink-1: #ffe6ef;
+  --pink-2: #ffb6c1;
+  --pink-3: #ff69b4;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(180deg, var(--pink-1), #ffffff);
+  min-height: 100vh;
+  padding-top: 72px; /* space for fixed navbar */
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--pink-2);
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: #fff !important;
+}
+.navbar-brand img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+#openLoginBtn {
+  background: #fff;
+  color: var(--pink-3);
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 18px;
+}
+#openLoginBtn:hover {
+  background: var(--pink-3);
+  color: #fff;
+}
+
+/* Centered auth card */
+.auth-wrap {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 72px);
+}
+#registerBox {
+  display: none;
+}
+.auth-wrap.active #loginBox {
+  display: none;
+}
+.auth-wrap.active #registerBox {
+  display: block !important;
+}
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(255, 105, 180, 0.25);
+  padding: 28px 24px;
+}
+.auth-title {
+  color: var(--pink-3);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.switch-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+.switch-text a {
+  color: var(--pink-3);
+  font-weight: 600;
+  text-decoration: none;
+}
+.switch-text a:hover {
+  text-decoration: underline;
+}
+.btn-primary {
+  background: var(--pink-3);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.btn-primary:hover {
+  background: #ff1493;
+}
+.d-hidden {
+  display: none !important;
+}
