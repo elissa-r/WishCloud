@@ -1,10 +1,12 @@
-import { Observable } from 'rxjs';
-import { Component, OnInit, Input } from '@angular/core';
-import { WishlistproxyService } from '../wishlistproxy.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { WishlistproxyService } from '../wishlistproxy.service'; // <-- check path
 
 @Component({
   selector: 'app-items',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './items.component.html',
   styleUrl: './items.component.css'
 })
@@ -17,7 +19,7 @@ export class ItemsComponent {
     private route: ActivatedRoute,
     private list$: WishlistproxyService
   ) { 
-    this.listId = route.snapshot.params['id'];
+    this.listId = this.route.snapshot.params['id'];
     this.list$.getItems(this.listId).subscribe((res: any) => {
       this.name = res.name;
       this.listItems = res;

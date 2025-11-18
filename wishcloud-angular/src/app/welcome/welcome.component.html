@@ -1,11 +1,90 @@
-<!--the code below is from the example github-->
+<section class="auth-wrap">
+  <div class="auth-card">
+    <!-- Login -->
+    <div *ngIf="!isRegisterMode">
+      <h2 class="auth-title">Welcome Back</h2>
+      <form (submit)="onLoginSubmit($event)" novalidate>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            [(ngModel)]="loginEmail"
+            name="loginEmail"
+            class="form-control"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Password</label>
+          <input
+            type="password"
+            [(ngModel)]="loginPassword"
+            name="loginPassword"
+            class="form-control"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-2">
+          Login
+        </button>
 
-<div class="jb-body position-relative p-5 text-center text-muted border border-dashed rounded-5">
-	<div class="jumbotron">
-		<h1>To Do List</h1>
-		<p>Keep track of all of things you need to do by creating lists and sharing items with friends.</p>
-		<p>
-			<a [routerLink]="['/list']" class="btn btn-lg bt-body" role="button">View</a>
-		</p>
-	</div>
-</div>
+        <p class="switch-text">
+          Don’t have an account?
+          <a href="" (click)="switchToRegister($event)" class="register-link">
+            Register here
+          </a>
+        </p>
+      </form>
+    </div>
+
+    <!-- Register -->
+    <div *ngIf="isRegisterMode">
+      <h2 class="auth-title">Create Account</h2>
+      <form (submit)="onRegisterSubmit($event)" novalidate>
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            [(ngModel)]="regName"
+            name="regName"
+            class="form-control"
+            placeholder="Your name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            [(ngModel)]="regEmail"
+            name="regEmail"
+            class="form-control"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Password</label>
+          <input
+            type="password"
+            [(ngModel)]="regPassword"
+            name="regPassword"
+            class="form-control"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-2">
+          Register
+        </button>
+
+        <p class="switch-text">
+          Already have an account?
+          <a href="" (click)="switchToLogin($event)" class="login-link">
+            Login
+          </a>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
