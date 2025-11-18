@@ -55,7 +55,6 @@ export class WishlistsComponent {
 
   // Called when you click a card
   goToList(list: any): void {
-    // adjust property name if your backend uses something else (e.g. list._id)
     this.router.navigate(['/list', list.id]);
   }
 
@@ -66,7 +65,6 @@ export class WishlistsComponent {
     const userID = this.auth.getCurrentUserId();
     if (!userID) {
       console.error('No logged-in user; cannot create wishlist.');
-      // You could also show a UI message here if you want.
       return;
     }
 

@@ -61,7 +61,7 @@ export class WelcomeComponent {
 
     try {
       await this.auth.register(this.regEmail, this.regPassword);
-      // (You could also store 'regName' in Firestore here later)
+      // Could also store 'regName' in Firestore here later
       this.router.navigate(['/list']);
     } catch (err: any) {
       console.error(err);
