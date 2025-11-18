@@ -1,37 +1,102 @@
-<div class="container mt-5" *ngIf="listItems; else loading">
-  <h2 class="mb-3">{{ name }}</h2>
+<div class="container mt-5">
 
-  <table
-    class="table table-striped"
-    *ngIf="listItems.tasks?.length > 0; else noItems"
-  >
-    <thead>
-      <tr>
-        <th>Task</th>
-        <th>Due</th>
-        <th>State</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let task of listItems.tasks">
-        <td>{{ task.name }}</td>
-        <td>{{ task.due }}</td>
-        <td>{{ task.state }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">{{ wishlistName }}</h2>
 
-  <ng-template #noItems>
-    <p>No items in this list yet.</p>
-  </ng-template>
+    <!-- OPEN MODAL BUTTON -->
+    <button 
+      class="btn btn-pink px-4"
+      data-bs-toggle="modal"
+      data-bs-target="#addItemModal">
+      + Add Item
+    </button>
+  </div>
 
-  <button class="btn btn-link mt-3" (click)="goBack()">
-    ← Back to all lists
-  </button>
+  <!-- ITEM CARDS -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let item of items">
+      <div class="card h-100">
+        <img [src]="item.photoLink || defaultImage" class="card-img-top" />
+
+        <div class="card-body">
+          <h5>{{ item.name }}</h5>
+          <p class="text-muted">${{ item.price }}</p>
+          <p>{{ item.description }}</p>
+
+          <a *ngIf="item.itemLink" [href]="item.itemLink" target="_blank">
+            View Item
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<ng-template #loading>
-  <div class="container mt-5">
-    <p>Loading list...</p>
+
+<!-- ADD ITEM MODAL -->
+<div 
+  class="modal fade" 
+  id="addItemModal" 
+  tabindex="-1"
+  aria-hidden="true">
+  
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">Add New Item</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <!--  THIS FIXES THE SUBMISSION ISSUE -->
+        <form (submit)="addItem($event)">
+
+          <input 
+            class="form-control mb-2"
+            placeholder="Item Name"
+            [(ngModel)]="newItem.name"
+            name="name"
+            required
+          />
+
+          <input 
+            class="form-control mb-2"
+            placeholder="Price"
+            type="number"
+            [(ngModel)]="newItem.price"
+            name="price"
+          />
+
+          <input 
+            class="form-control mb-2"
+            placeholder="Photo URL"
+            [(ngModel)]="newItem.photoLink"
+            name="photoLink"
+          />
+
+          <input 
+            class="form-control mb-2"
+            placeholder="Item Link"
+            [(ngModel)]="newItem.itemLink"
+            name="itemLink"
+          />
+
+          <textarea
+            class="form-control mb-2"
+            placeholder="Description"
+            [(ngModel)]="newItem.description"
+            name="description">
+          </textarea>
+
+          <button class="btn btn-pink w-100 mt-2">
+            Save Item
+          </button>
+
+        </form>
+      </div>
+
+    </div>
   </div>
-</ng-template>
+</div>

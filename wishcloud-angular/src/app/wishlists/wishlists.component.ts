@@ -54,8 +54,10 @@ export class WishlistsComponent {
   }
 
   // Called when you click a card
-  goToList(list: any): void {
-    this.router.navigate(['/list', list.id]);
+  goToList(list: any) {
+    this.router.navigate(['/items', list._id], {
+      queryParams: { name: list.name }
+    });
   }
 
   // Called when "Save Wishlist" is clicked in the modal

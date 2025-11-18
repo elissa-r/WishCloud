@@ -1,0 +1,32 @@
+.btn-pink {
+  background-color: #ff93c9;
+  color: white;
+  border-radius: 15px;
+  padding: 8px 20px;
+  font-weight: bold;
+}
+
+.btn-pink:hover {
+  background-color: #ff7bb8;
+}
+
+.btn-outline-pink {
+  border: 1px solid #ff93c9;
+  color: #ff93c9;
+  border-radius: 12px;
+}
+
+.btn-outline-pink:hover {
+  background-color: #ff93c9;
+  color: white;
+}
+
+.cute-card {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.cute-modal {
+  border-radius: 20px;
+}

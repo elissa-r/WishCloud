@@ -1,36 +1,71 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { WishlistproxyService } from '../wishlistproxy.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-items',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './items.component.html',
-  styleUrl: './items.component.css'
+  styleUrls: ['./items.component.css'],
+  imports: [CommonModule, FormsModule]
 })
 export class ItemsComponent {
-  name: string = '';
-  listId: string;
-  listItems: any;
+
+  wishlistId = '';
+  wishlistName = '';
+  items: any[] = [];
+
+  newItem = {
+    name: '',
+    price: null,
+    photoLink: '',
+    itemLink: '',
+    description: ''
+  };
+
+  defaultImage =
+    'https://via.placeholder.com/300x200.png?text=No+Image';
 
   constructor(
     private route: ActivatedRoute,
-    private list$: WishlistproxyService,
-    private router: Router
-  ) {
-    this.listId = this.route.snapshot.params['id'];
-    this.list$.getItems(this.listId).subscribe((res: any) => {
-      this.name = res.name;
-      this.listItems = res;
-      console.log('retrieved list items:', res);
-    });
+    private wishlistService: WishlistproxyService
+  ) {}
+
+  ngOnInit() {
+    this.wishlistId = this.route.snapshot.paramMap.get('id')!;
+    this.wishlistName = this.route.snapshot.queryParamMap.get('name')!;
+    this.loadItems();
   }
 
-  ngOnInit(): void {}
+  loadItems() {
+    this.wishlistService.getItemsForList(this.wishlistId)
+      .subscribe(data => {
+        this.items = data;
+      });
+  }
 
-  goBack(): void {
-    this.router.navigate(['/list']);
+  addItem(event: Event) {
+    event.preventDefault();
+
+    this.wishlistService
+      .addItemToList(this.wishlistId, this.newItem)
+      .subscribe(() => {
+        this.loadItems();
+
+        // reset form
+        this.newItem = {
+          name: '',
+          price: null,
+          photoLink: '',
+          itemLink: '',
+          description: ''
+        };
+
+        // close modal automatically
+        const modal = document.getElementById('addItemModal');
+        if (modal) (modal as any).style.display = 'none';
+      });
   }
 }
