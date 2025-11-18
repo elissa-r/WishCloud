@@ -1,32 +1,124 @@
-<div class="container mt-5">
-  <h2 class="mb-3">Your Wishlists</h2>
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark">Your Wishlists</h2>
+    <button
+      class="btn btn-pink px-4"
+      data-bs-toggle="modal"
+      data-bs-target="#wishlistModal"
+    >
+      + Create Wishlist
+    </button>
+  </div>
 
-  <table class="table table-striped table-hover" *ngIf="lists.length > 0; else noLists">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Due</th>
-        <th>State</th>
-        <th>Owner</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
+  <!-- Wishlist cards -->
+  <div class="row">
+    <ng-container *ngIf="lists && lists.length > 0; else noLists">
+      <div
+        class="col-md-4 mb-4"
         *ngFor="let list of lists"
         (click)="goToList(list)"
         style="cursor: pointer"
       >
-        <td>{{ list.name }}</td>
-        <td>{{ list.description }}</td>
-        <td>{{ list.due }}</td>
-        <td>{{ list.state }}</td>
-        <td>{{ list.owner }}</td>
-      </tr>
-    </tbody>
-  </table>
+        <div class="card h-100">
+          <img
+            [src]="list.photoUrl || list.photo || defaultImage"
+            class="card-img-top"
+            alt="Wishlist image"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ list.name }}</h5>
+            <p class="card-text text-muted mb-1">
+              {{ list.description || 'No description yet.' }}
+            </p>
+            <p class="card-text mb-0">
+              <small *ngIf="list.budget">Budget: ${{ list.budget }}</small>
+            </p>
+            <p class="card-text">
+              <small *ngIf="list.date">Date: {{ list.date | date }}</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 
   <ng-template #noLists>
-    <p>No wishlists yet.</p>
+    <p class="text-muted">No wishlists yet.</p>
   </ng-template>
+</div>
+
+<!-- Create Wishlist Modal -->
+<div
+  class="modal fade"
+  id="wishlistModal"
+  tabindex="-1"
+  aria-labelledby="wishlistModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold" id="wishlistModalLabel">
+          Create a New Wishlist
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form (submit)="onCreateWishlist($event)">
+          <div class="mb-3">
+            <label class="form-label">List Name</label>
+            <input
+              type="text"
+              [(ngModel)]="newListName"
+              name="newListName"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Photo Link</label>
+            <input
+              type="text"
+              [(ngModel)]="newListPhoto"
+              name="newListPhoto"
+              class="form-control"
+              placeholder="https://example.com/photo.jpg"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Budget ($)</label>
+            <input
+              type="number"
+              [(ngModel)]="newListBudget"
+              name="newListBudget"
+              class="form-control"
+              min="0"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Date (optional)</label>
+            <input
+              type="date"
+              [(ngModel)]="newListDate"
+              name="newListDate"
+              class="form-control"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-pink w-100 mt-2">
+            Save Wishlist
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
