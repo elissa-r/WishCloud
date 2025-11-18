@@ -25,6 +25,9 @@
             required
           />
         </div>
+
+        <p *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</p>
+
         <button type="submit" class="btn btn-primary w-100 mt-2">
           Login
         </button>
@@ -74,6 +77,9 @@
             required
           />
         </div>
+
+        <p *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</p>
+
         <button type="submit" class="btn btn-primary w-100 mt-2">
           Register
         </button>

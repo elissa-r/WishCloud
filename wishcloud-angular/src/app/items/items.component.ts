@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { WishlistproxyService } from '../wishlistproxy.service'; // <-- check path
+import { ActivatedRoute, Router } from '@angular/router';
+import { WishlistproxyService } from '../wishlistproxy.service';
 
 @Component({
   selector: 'app-items',
@@ -11,20 +11,26 @@ import { WishlistproxyService } from '../wishlistproxy.service'; // <-- check pa
   styleUrl: './items.component.css'
 })
 export class ItemsComponent {
-  name: string = "";
+  name: string = '';
   listId: string;
   listItems: any;
 
   constructor(
     private route: ActivatedRoute,
-    private list$: WishlistproxyService
-  ) { 
+    private list$: WishlistproxyService,
+    private router: Router
+  ) {
     this.listId = this.route.snapshot.params['id'];
     this.list$.getItems(this.listId).subscribe((res: any) => {
       this.name = res.name;
       this.listItems = res;
+      console.log('retrieved list items:', res);
     });
   }
 
-  ngOnInit():void {}
+  ngOnInit(): void {}
+
+  goBack(): void {
+    this.router.navigate(['/list']);
+  }
 }

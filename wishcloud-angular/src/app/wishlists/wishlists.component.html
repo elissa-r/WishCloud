@@ -1,62 +1,32 @@
-<!--the code below is from the example github-->
+<div class="container mt-5">
+  <h2 class="mb-3">Your Wishlists</h2>
 
-<div class="container  mat-app-background">
-  <p>
-  <mat-toolbar color='primary'>
-    <button class="example-icon" mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <button class="example-icon" mat-icon-button aria-label="Example icon-button with menu icon">
-      <mat-menu #menu="matMenu">
-        <div mat-menu-item>Item 1</div>
-        <div mat-menu-item>Item 2</div>
-      </mat-menu>
-    </button>
-    <span>To Do App</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>share</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>help</mat-icon>
-    </button>
-  </mat-toolbar>
-  </p>
-  
-  <h3 class="panel-heading">Active Lists</h3>
-  
-  <div class="panel panel-default">
-      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">  
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
-          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="due">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Due</th>
-          <td mat-cell *matCellDef="let element"> {{element.due}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="state">
-          <th mat-header-cell *matHeaderCellDef>State</th>
-          <td mat-cell *matCellDef="let element"> {{element.state}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="owner">
-          <th mat-header-cell *matHeaderCellDef>Owner</th>
-          <td mat-cell *matCellDef="let element"> {{element.owner}} </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>    
-  
-      </table>
-  </div>
-  <button mat-button (click)="clickEvent()" color="primary">Back</button>  
-  
-  </div> <!-- /container -->  
+  <table class="table table-striped table-hover" *ngIf="lists.length > 0; else noLists">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Due</th>
+        <th>State</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let list of lists"
+        (click)="goToList(list)"
+        style="cursor: pointer"
+      >
+        <td>{{ list.name }}</td>
+        <td>{{ list.description }}</td>
+        <td>{{ list.due }}</td>
+        <td>{{ list.state }}</td>
+        <td>{{ list.owner }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noLists>
+    <p>No wishlists yet.</p>
+  </ng-template>
+</div>

@@ -1,45 +1,29 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { MatButtonModule } from '@angular/material/button';
-import { WishlistproxyService } from '../wishlistproxy.service'; // <-- check path
+import { WishlistproxyService } from '../wishlistproxy.service';
 
 @Component({
   selector: 'app-wishlists',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatTableModule,
-    MatSortModule,
-    MatButtonModule,
-  ],
+  imports: [CommonModule],
   templateUrl: './wishlists.component.html',
   styleUrl: './wishlists.component.css'
 })
 export class WishlistsComponent {
-
-  displayedColumns: string[] = ['name', 'description', 'due', 'state', 'owner'];
-  dataSource = new MatTableDataSource<any>();
+  // This will be filled with the data from your backend
+  lists: any[] = [];
 
   constructor(private router: Router, proxy$: WishlistproxyService) {
     proxy$.getListsIndex().subscribe((result: any[]) => {
-      this.dataSource = new MatTableDataSource<any>(result);
-      // this.dataSource.sort = this.sort;
-      console.log("retrieved data from server.");
+      this.lists = result;
+      console.log('retrieved lists from server:', result);
     });
   }
 
-  ngOnInit() {}
-
-  clickEvent(): void {
-    this.router.navigate(['']);
+  // Called when you click a row
+  goToList(list: any): void {
+    // adjust property name if your backend uses something else (e.g. list._id)
+    this.router.navigate(['/list', list.id]);
   }
 }
