@@ -35,6 +35,7 @@ export class ItemsComponent {
 
   ngOnInit() {
     this.wishlistId = this.route.snapshot.paramMap.get('id')!;
+    console.log("Loaded wishlist ID:", this.wishlistId);
     this.wishlistName = this.route.snapshot.queryParamMap.get('name')!;
     this.loadItems();
   }

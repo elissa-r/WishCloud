@@ -55,6 +55,8 @@ export class WishlistsComponent {
 
   // Called when you click a card
   goToList(list: any) {
+    console.log("Loaded wishlist ID:", list._id);
+
     this.router.navigate(['/items', list._id], {
       queryParams: { name: list.name }
     });

@@ -1,10 +1,11 @@
-import express from 'express';
-import { Wishlist } from '../models/WishlistModel';
 import { Router } from 'express';
+import { Wishlist } from '../models/WishlistModel';
+import { Item } from '../models/ItemModel';   // <-- REQUIRED IMPORT
 
 export const wishlistRouter = Router();
 
-// POST - create a new wishlist
+
+// CREATE WISHLIST
 wishlistRouter.post('/', async (req, res) => {
   try {
     const newWishlist = new Wishlist(req.body);
@@ -16,7 +17,8 @@ wishlistRouter.post('/', async (req, res) => {
   }
 });
 
-// GET - get all wishlists
+
+// GET ALL WISHLISTS
 wishlistRouter.get('/', async (req, res) => {
   try {
     const wishlists = await Wishlist.find();
@@ -28,13 +30,10 @@ wishlistRouter.get('/', async (req, res) => {
 });
 
 
-// GET - get wishlists by userID
+// GET WISHLISTS BY USER
 wishlistRouter.get('/user/:userID', async (req, res) => {
   try {
     const wishlists = await Wishlist.find({ userID: req.params.userID });
-    if (!wishlists || wishlists.length === 0) {
-      return res.status(200).json([]); // return empty array if none found
-    }
     res.status(200).json(wishlists);
   } catch (err) {
     console.error('Error fetching wishlists for user:', err);
@@ -42,10 +41,64 @@ wishlistRouter.get('/user/:userID', async (req, res) => {
   }
 });
 
-// GET - get a wishlist by ID
+
+// ADD ITEM TO WISHLIST
+wishlistRouter.post('/:id/items', async (req, res) => {
+  try {
+    const wishlistId = req.params.id;
+
+    console.log("Add item request received:", req.body);
+
+    // 1. Create Item
+    const newItem = new Item(req.body);
+    await newItem.save();
+
+    // 2. Find wishlist
+    const wishlist = await Wishlist.findById(wishlistId);
+
+    if (!wishlist) {
+      return res.status(404).json({ message: "Wishlist not found" });
+    }
+
+    // IMPORTANT FIX: ensure items array exists
+    if (!Array.isArray(wishlist.items)) {
+      console.log("Wishlist had no items array. Creating one.");
+      wishlist.items = [];
+    }
+
+    // Add item to wishlist
+    wishlist.items.push(newItem._id);
+
+    await wishlist.save();
+
+    console.log("Item added successfully:", newItem);
+
+    res.status(201).json(newItem);
+
+  } catch (err) {
+    console.error("Error adding item:", err);
+    res.status(500).json({ message: "Server error while adding item" });
+  }
+});
+
+// GET ITEMS FOR A WISHLIST - MUST COME FIRST
+wishlistRouter.get('/:id/items', async (req, res) => {
+  try {
+    const wishlist = await Wishlist.findById(req.params.id).populate('items');
+    if (!wishlist) {
+      return res.status(404).json({ message: "Wishlist not found" });
+    }
+    res.json(wishlist.items);
+  } catch (err) {
+    console.error("Error fetching items:", err);
+    res.status(500).json({ message: "Server error while fetching items" });
+  }
+});
+
+// GET WISHLIST BY ID
 wishlistRouter.get('/:id', async (req, res) => {
   try {
-    const wishlist = await Wishlist.findById(req.params.id);
+    const wishlist = await Wishlist.findById(req.params.id).populate('items');
     if (!wishlist) {
       return res.status(404).json({ message: 'Wishlist not found' });
     }
@@ -55,3 +108,6 @@ wishlistRouter.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error while fetching wishlist.' });
   }
 });
+
+
+

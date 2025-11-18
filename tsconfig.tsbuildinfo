@@ -1,0 +1,1 @@
+{"root":["./src/app.ts","./src/appserver.ts","./src/interfaces/iitemmodel.ts","./src/interfaces/ilistmodel.ts","./src/models/itemmodel.ts","./src/models/usermodel.ts","./src/models/wishlistmodel.ts","./src/routes/itemroutes.ts","./src/routes/userroutes.ts","./src/routes/wishlistroutes.ts"],"version":"5.9.3"}
