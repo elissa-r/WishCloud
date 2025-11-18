@@ -47,22 +47,28 @@ export class WishlistsComponent {
 
     const payload = {
       name: this.newListName,
-      photoUrl: this.newListPhoto,
-      budget: this.newListBudget,
-      date: this.newListDate,
+      photoUrl: this.newListPhoto || null,
+      budget: this.newListBudget || null,
+      date: this.newListDate || null,
+      userID: 'test-user'  // <-- TEMP until we wire up Firebase auth user IDs
     };
 
-    console.log('Create wishlist payload:', payload);
+    this.proxy$.createWishlist(payload).subscribe({
+      next: (saved) => {
+        console.log("Saved wishlist:", saved);
 
-    // TODO: when you’re ready, call a backend method here, e.g.:
-    // this.proxy$.createWishlist(payload).subscribe(...)
+        // Add immediately to the UI so it appears without refresh
+        this.lists.push(saved);
 
-    // For now, just reset the form:
-    this.newListName = '';
-    this.newListPhoto = '';
-    this.newListBudget = null;
-    this.newListDate = '';
-
-    // You can optionally close the modal with JS if you want later.
+        // Reset modal form
+        this.newListName = '';
+        this.newListPhoto = '';
+        this.newListBudget = null;
+        this.newListDate = '';
+      },
+      error: (err) => {
+        console.error("Failed to save wishlist:", err);
+      }
+    });
   }
 }

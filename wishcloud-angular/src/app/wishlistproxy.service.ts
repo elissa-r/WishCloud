@@ -6,15 +6,22 @@ import { HttpClient } from '@angular/common/http';
 })
 export class WishlistproxyService {
 
-  hostUrl:string = 'http://localhost:8080/';
+  private hostUrl = 'http://localhost:3000/api';  // backend base URL
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  // GET all wishlists
   getListsIndex() {
-    return this.httpClient.get<any[]>( this.hostUrl + 'json/lists.json');
+    return this.http.get<any[]>(`${this.hostUrl}/wishlists`);
   }
 
-  getItems(index: string) {
-    return this.httpClient.get( this.hostUrl + 'json/lists/' + index + '.json');
+  // GET wishlist by ID (note: /wishlists/:id)
+  getItems(id: string) {
+    return this.http.get<any>(`${this.hostUrl}/wishlists/${id}`);
+  }
+
+  // POST create wishlist
+  createWishlist(payload: any) {
+    return this.http.post(`${this.hostUrl}/wishlists`, payload);
   }
 }

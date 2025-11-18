@@ -17,6 +17,7 @@ class App {
     this.express = express();
     this.middleware();
     this.routes();
+    this.database();
   }
 
   private middleware(): void {
