@@ -1,0 +1,16 @@
+<div class="container py-5">
+  <div *ngIf="loading">
+    <p class="text-muted">Loading wishlist...</p>
+  </div>
+
+  <div *ngIf="!loading && wishlist">
+    <h2 class="fw-bold">{{ wishlist.name }}</h2>
+    <img [src]="wishlist.photo || 'https://via.placeholder.com/400x200'" class="img-fluid my-3" />
+    <p>Budget: ${{ wishlist.budget || 'N/A' }}</p>
+    <p>Date: {{ wishlist.date || 'N/A' }}</p>
+  </div>
+
+  <div *ngIf="!loading && error">
+    <p class="text-danger">{{ error }}</p>
+  </div>
+</div>

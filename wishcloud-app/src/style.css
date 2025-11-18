@@ -1,0 +1,202 @@
+/* used below youtube video to code this login and registration popup form *
+/*https://www.youtube.com/watch?v=p1GmFCGuVjw *
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+/* Variables */
+:root {
+    --pink-1: #ffe6ef;
+    --pink-2: #ffb6c1;
+    --pink-3: #ff69b4;
+    --btn-radius: 10px;
+}
+
+/* Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(180deg, var(--pink-1), #ffffff);
+    min-height: 100vh;
+    padding-top: 72px; /* space for fixed navbar */
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--pink-2);
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: #fff !important;
+    font-size: 1.5rem;
+}
+
+.navbar-brand img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#logoutBtn {
+    background-color: #fff;
+    color: var(--pink-3);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--btn-radius);
+    padding: 6px 16px;
+}
+
+#logoutBtn:hover {
+    background-color: var(--pink-3);
+    color: #fff;
+}
+
+/* Login/Register/Authentication */
+.auth-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 72px);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(255, 105, 180, 0.25);
+    padding: 28px 24px;
+}
+
+.auth-title {
+    color: var(--pink-3);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.switch-text {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+.switch-text a {
+    color: var(--pink-3);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.switch-text a:hover {
+    text-decoration: underline;
+}
+
+/* Form Inputs */
+.form-control:focus {
+    border-color: var(--pink-3);
+    box-shadow: 0 0 5px var(--pink-3);
+}
+
+.btn-primary {
+    background: var(--pink-3);
+    border: none;
+    border-radius: var(--btn-radius);
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: #ff1493;
+}
+
+/* Dashboard */
+.container {
+    max-width: 1140px;
+    margin: auto;
+    padding: 2rem 1rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.btn-pink {
+    background-color: var(--pink-3);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--btn-radius);
+    padding: 0.5rem 1.5rem;
+}
+
+.btn-pink:hover {
+    background-color: #ff1493;
+    color: #fff;
+}
+
+/* Dashboard Text */
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.text-dark {
+    color: #333 !important;
+}
+
+/* Modals */
+.modal-content {
+    border-radius: 1rem;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.modal-title {
+    font-weight: 700;
+}
+
+.modal-body {
+    padding-top: 1rem;
+}
+
+/* Utility */
+.mt-2 { margin-top: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+.py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+.text-muted { color: #6c757d !important; }
