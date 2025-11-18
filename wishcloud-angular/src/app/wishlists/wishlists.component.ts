@@ -32,9 +32,24 @@ export class WishlistsComponent {
     private proxy$: WishlistproxyService,
     private auth: AuthService
   ) {
-    this.proxy$.getListsIndex().subscribe((result: any[]) => {
-      this.lists = result;
-      console.log('retrieved lists from server:', result);
+    const userID = this.auth.getCurrentUserId();
+
+    if (!userID) {
+      console.error('No logged-in user; redirecting to home.');
+      this.lists = [];
+      this.router.navigate(['/']);  // back to welcome/login
+      return;
+    }
+
+    this.proxy$.getListsIndex(userID).subscribe({
+      next: (result: any[]) => {
+        this.lists = result;
+        console.log('retrieved lists from server for user', userID, result);
+      },
+      error: (err) => {
+        console.error('Failed to load wishlists for user', userID, err);
+        this.lists = [];
+      }
     });
   }
 

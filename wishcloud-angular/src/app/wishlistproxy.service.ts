@@ -10,9 +10,9 @@ export class WishlistproxyService {
 
   constructor(private http: HttpClient) {}
 
-  // GET all wishlists
-  getListsIndex() {
-    return this.http.get<any[]>(`${this.hostUrl}/wishlists`);
+  // GET wishlists for a specific user
+  getListsIndex(userId: string) {
+    return this.http.get<any[]>(`${this.hostUrl}/wishlists/user/${userId}`);
   }
 
   // GET wishlist by ID (note: /wishlists/:id)
