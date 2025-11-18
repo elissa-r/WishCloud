@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { WishlistproxyService } from '../wishlistproxy.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-wishlists',
@@ -11,6 +12,7 @@ import { WishlistproxyService } from '../wishlistproxy.service';
   templateUrl: './wishlists.component.html',
   styleUrl: './wishlists.component.css'
 })
+
 export class WishlistsComponent {
   // Filled with data from backend
   lists: any[] = [];
@@ -27,7 +29,8 @@ export class WishlistsComponent {
 
   constructor(
     private router: Router,
-    private proxy$: WishlistproxyService
+    private proxy$: WishlistproxyService,
+    private auth: AuthService
   ) {
     this.proxy$.getListsIndex().subscribe((result: any[]) => {
       this.lists = result;
@@ -45,17 +48,24 @@ export class WishlistsComponent {
   onCreateWishlist(event: Event): void {
     event.preventDefault();
 
+    const userID = this.auth.getCurrentUserId();
+    if (!userID) {
+      console.error('No logged-in user; cannot create wishlist.');
+      // You could also show a UI message here if you want.
+      return;
+    }
+
     const payload = {
       name: this.newListName,
       photoUrl: this.newListPhoto || null,
       budget: this.newListBudget || null,
       date: this.newListDate || null,
-      userID: 'test-user'  // <-- TEMP until we wire up Firebase auth user IDs
+      userID: userID
     };
 
     this.proxy$.createWishlist(payload).subscribe({
       next: (saved) => {
-        console.log("Saved wishlist:", saved);
+        console.log('Saved wishlist:', saved);
 
         // Add immediately to the UI so it appears without refresh
         this.lists.push(saved);
@@ -67,7 +77,7 @@ export class WishlistsComponent {
         this.newListDate = '';
       },
       error: (err) => {
-        console.error("Failed to save wishlist:", err);
+        console.error('Failed to save wishlist:', err);
       }
     });
   }

@@ -19,4 +19,9 @@ export class AuthService {
   register(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
+
+  getCurrentUserId(): string | null {
+    const user = this.auth.currentUser;
+    return user ? user.uid : null;
+  }
 }
