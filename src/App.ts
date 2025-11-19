@@ -7,6 +7,8 @@ import { userRouter } from './routes/UserRoutes';
 import { wishlistRouter } from './routes/WishlistRoutes';
 import { itemRouter } from './routes/ItemRoutes';
 import * as dotenv from 'dotenv';
+import morgan from "morgan";
+
 
 dotenv.config();
 
@@ -21,6 +23,7 @@ class App {
   }
 
   private middleware(): void {
+    this.express.use(morgan("dev"));
     this.express.use(cors());
     this.express.use(bodyParser.json());
     this.express.use(express.static('public'));

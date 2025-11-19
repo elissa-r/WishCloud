@@ -92,16 +92,23 @@ Accept: application/json
 
 #"C:\Program Files\MongoDB\Server\8.2\bin\mongod.exe" --dbpath="C:\data\db" - to start mongo db server
 
+
+
 ### Single Object Test
+# Should return a single wishlist based on the id
 # HOST: http://localhost:3000
 # PATH: /api/wishlists/:id
 
-GET http://localhost:3000/api/wishlists/6903c3be9fae4ab686274579
+GET http://localhost:3000/api/wishlists/691cf9f48c791bdab012c0bc
 Accept: application/json
 
 
 
+
+
+
 ### List Object Test
+# Should return all wishlists in the data set
 # HOST: http://localhost:3000
 # PATH: /api/wishlists
 

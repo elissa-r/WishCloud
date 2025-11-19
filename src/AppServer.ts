@@ -1,6 +1,9 @@
 import { App } from './App';
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import morgan from "morgan";
+
+
 
 dotenv.config();
 
@@ -10,6 +13,7 @@ async function startServer() {
   try {
     await mongoose.connect(process.env.MONGO_URI!);
     console.log('MongoDB connected');
+    
 
     const server = new App().express;
     server.listen(port, () => {
