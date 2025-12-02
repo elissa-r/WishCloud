@@ -10,4 +10,6 @@ const itemSchema = new mongoose.Schema({
   isReserved: { type: Boolean },
 });
 
-export const Item = mongoose.model('Item', itemSchema);
+export const Item =
+  mongoose.models.Item || mongoose.model("Item", itemSchema);
+

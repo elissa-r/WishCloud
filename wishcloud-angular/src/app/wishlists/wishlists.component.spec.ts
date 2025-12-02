@@ -1,23 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { WishlistsComponent } from './wishlists.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('WishlistsComponent', () => {
-  let component: WishlistsComponent;
-  let fixture: ComponentFixture<WishlistsComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [WishlistsComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(WishlistsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      imports: [WishlistsComponent, HttpClientTestingModule]  // standalone FIX
+    }).compileComponents();
   });
 
   it('should create', () => {
+    const fixture = TestBed.createComponent(WishlistsComponent);
+    const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 });

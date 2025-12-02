@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { ItemsComponent } from './items.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ItemsComponent', () => {
-  let component: ItemsComponent;
-  let fixture: ComponentFixture<ItemsComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ItemsComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(ItemsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      imports: [
+        ItemsComponent,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ]
+    }).compileComponents();
   });
 
   it('should create', () => {
+    const fixture = TestBed.createComponent(ItemsComponent);
+    const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 });
