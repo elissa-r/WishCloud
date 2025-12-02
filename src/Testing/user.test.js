@@ -1,4 +1,4 @@
-const User = require('../models/UserModel');
+const { User } = require('../models/UserModel');
 
 describe('User Model Test Suite', () => {
   it('should create & save a user successfully', async () => {
@@ -23,7 +23,7 @@ describe('User Model Test Suite', () => {
   it('should delete a user', async () => {
     await User.create({ name: 'Alivia', email: 'alivia@example.com', password:"WishCloud123" });
 
-    await User.deleteOne({ email: 'aliviae@example.com' });
+    await User.deleteOne({ email: 'alivia@example.com' });
     const user = await User.findOne({ email: 'alivia@example.com' });
 
     expect(user).toBeNull();
