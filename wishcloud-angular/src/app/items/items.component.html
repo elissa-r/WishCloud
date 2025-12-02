@@ -1,36 +1,3 @@
-<div class="container mt-5">
-
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold">{{ wishlistName }}</h2>
-
-    <!-- OPEN MODAL BUTTON -->
-    <button 
-      class="btn btn-pink px-4"
-      data-bs-toggle="modal"
-      data-bs-target="#addItemModal">
-      + Add Item
-    </button>
-  </div>
-
-  <!-- ITEM CARDS -->
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let item of items">
-      <div class="card h-100">
-        <img [src]="item.photoLink || defaultImage" class="card-img-top" />
-
-        <div class="card-body">
-          <h5>{{ item.name }}</h5>
-          <p class="text-muted">${{ item.price }}</p>
-          <p>{{ item.description }}</p>
-
-          <a *ngIf="item.itemLink" [href]="item.itemLink" target="_blank">
-            View Item
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <!-- ADD ITEM MODAL -->
@@ -50,7 +17,6 @@
 
       <div class="modal-body">
 
-        <!--  THIS FIXES THE SUBMISSION ISSUE -->
         <form (submit)="addItem($event)">
 
           <input 
@@ -100,3 +66,70 @@
     </div>
   </div>
 </div>
+
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">{{ wishlistName }}</h2>
+
+    <button 
+      class="btn btn-pink px-4"
+      data-bs-toggle="modal"
+      data-bs-target="#addItemModal">
+      + Add Item
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let item of items">
+      <div class="card h-100 position-relative">
+
+        <!-- DELETE BUTTON -->
+        <button class="delete-btn" (click)="openDeleteModal(item)">
+          ✕
+        </button>
+
+        <img [src]="item.photoLink || defaultImage" class="card-img-top" />
+
+        <div class="card-body">
+          <h5>{{ item.name }}</h5>
+          <p class="text-muted">${{ item.price }}</p>
+          <p>{{ item.description }}</p>
+
+          <a *ngIf="item.itemLink" [href]="item.itemLink" target="_blank">
+            View Item
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">Remove Item</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>Are you sure you want to remove <strong>{{ selectedItem?.name }}</strong>?</p>
+
+        <div class="d-flex justify-content-end gap-2">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+          </button>
+
+          <button class="btn btn-danger" (click)="deleteItem()">
+            Remove
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

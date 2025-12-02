@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { WishlistproxyService } from '../wishlistproxy.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+declare var bootstrap: any;
+
 
 @Component({
   selector: 'app-items',
@@ -16,6 +18,8 @@ export class ItemsComponent {
   wishlistId = '';
   wishlistName = '';
   items: any[] = [];
+  selectedItem: any = null;
+
 
   newItem = {
     name: '',
@@ -32,7 +36,7 @@ export class ItemsComponent {
     private route: ActivatedRoute,
     private wishlistService: WishlistproxyService
   ) {}
-
+// 
   ngOnInit() {
     this.wishlistId = this.route.snapshot.paramMap.get('id')!;
     console.log("Loaded wishlist ID:", this.wishlistId);
@@ -64,9 +68,41 @@ export class ItemsComponent {
           description: ''
         };
 
-        // close modal automatically
-        const modal = document.getElementById('addItemModal');
-        if (modal) (modal as any).style.display = 'none';
+      const modalEl = document.getElementById('addItemModal') as any;
+      if (modalEl) {
+        modalEl.classList.remove('show');
+        modalEl.style.display = 'none';
+
+        // Remove backdrop manually 
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(b => b.remove());
+
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+      }
+
       });
   }
+
+  openDeleteModal(item: any) {
+    this.selectedItem = item;
+
+    const modalEl = document.getElementById('deleteModal');
+    new bootstrap.Modal(modalEl!).show();
+  }
+
+  deleteItem() {
+    this.wishlistService.deleteItem(this.selectedItem._id)
+      .subscribe(() => {
+
+        // Remove from UI
+        this.items = this.items.filter(i => i._id !== this.selectedItem._id);
+
+        // Close modal
+        const modalEl = document.getElementById('deleteModal');
+        const modal = bootstrap.Modal.getInstance(modalEl!);
+        modal.hide();
+      });
+  }
+
 }

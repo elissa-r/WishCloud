@@ -41,3 +41,32 @@ itemRouter.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error while fetching item.' });
   }
 });
+
+// DELETE - remove an item
+itemRouter.delete('/:id', async (req, res) => {
+  try {
+    const itemId = req.params.id;
+
+    // 1. Delete item itself
+    const deletedItem = await Item.findByIdAndDelete(itemId);
+
+    if (!deletedItem) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+
+    // 2. Remove item reference from all wishlists
+    const Wishlist = require('../models/WishlistModel').Wishlist;
+
+    await Wishlist.updateMany(
+      { items: itemId },
+      { $pull: { items: itemId } }
+    );
+
+    res.status(200).json({ message: "Item deleted successfully" });
+
+  } catch (err) {
+    console.error("Error deleting item:", err);
+    res.status(500).json({ message: "Server error while deleting item." });
+  }
+});
+
