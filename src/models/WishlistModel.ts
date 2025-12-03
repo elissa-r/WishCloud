@@ -7,7 +7,8 @@ const wishlistSchema = new mongoose.Schema({
   photoLink: String,
   date: Date,
   budget: Number,
-  items: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }]
+  items: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }],
+  shareId: { type: String, default: null }
 });
 
 export const Wishlist =

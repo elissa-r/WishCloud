@@ -34,5 +34,13 @@ export class WishlistproxyService {
   return this.http.delete(`${this.hostUrl}/items/${itemId}`);
   }
 
+  generateShareLink(id: string) {
+  return this.http.post<{ shareUrl: string }>(
+    `${this.hostUrl}/wishlists/${id}/share`,
+    {}
+  );
+}
+
+
 
 }
