@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest --runInBand"
+    "test": "jest --config jest.config.cjs --runInBand"
   },
   "prettier": {
     "printWidth": 100,
@@ -55,10 +55,5 @@
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.6",
     "typescript": "~5.9.2"
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/tests/setup.js"
-    ]
   }
 }

@@ -1,17 +1,12 @@
-const { pathsToModuleNameMapper } = require('ts-jest');
-const { compilerOptions } = require('./tsconfig.json');
-
 /** @type {import('jest').Config} */
 module.exports = {
   preset: 'jest-preset-angular',
   testEnvironment: 'jsdom',
+
+  // Run Angular setup after env is ready
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-  globalSetup: 'jest-preset-angular/global-setup',
 
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
-    prefix: '<rootDir>/',
-  }),
-
+  // Look for your Angular spec files
   testMatch: ['<rootDir>/src/app/**/*.spec.ts'],
 
   transform: {
@@ -24,5 +19,6 @@ module.exports = {
     ],
   },
 
+  // Let Jest transform Angular's ESM packages
   transformIgnorePatterns: ['node_modules/(?!@angular|rxjs|tslib/)'],
 };
