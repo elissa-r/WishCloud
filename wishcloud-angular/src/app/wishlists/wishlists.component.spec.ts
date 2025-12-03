@@ -51,7 +51,7 @@ describe('WishlistsComponent', () => {
     const fixture = TestBed.createComponent(WishlistsComponent);
     const component = fixture.componentInstance;
 
-    fixture.detectChanges(); // triggers ngOnInit
+    fixture.detectChanges(); // let Angular run change detection
 
     expect(wishlistServiceMock.getListsIndex).toHaveBeenCalled();
     expect(wishlistServiceMock.getListsIndex).toHaveBeenCalledWith('user123');
@@ -70,23 +70,20 @@ describe('WishlistsComponent', () => {
     component.newListName = 'New List';
     component.newListPhoto = 'photo';
     component.newListBudget = 100;
-    component.newListDate = '2025-12-25' as any;
+    component.newListDate = '2025-12-25';
 
-    const preventDefault = jest.fn();
-    const fakeEvent = { preventDefault } as any as Event;
+    const fakeEvent = { preventDefault: jest.fn() } as any as Event;
 
     component.onCreateWishlist(fakeEvent);
 
     expect(fakeEvent.preventDefault).toHaveBeenCalled();
 
-    expect(wishlistServiceMock.createWishlist).toHaveBeenCalledWith(
-      expect.objectContaining({
-        name: 'New List',
-        photoUrl: 'photo',
-        budget: 100,
-        date: '2025-12-25',
-        userID: 'userABC',
-      }),
+    expect(wishlistServiceMock.createWishlist).toHaveBeenCalledWith({
+      name: 'New List',
+      photoUrl: 'photo',
+      budget: 100,
+      date: '2025-12-25',
+      userID: 'userABC',
     );
   });
 });
