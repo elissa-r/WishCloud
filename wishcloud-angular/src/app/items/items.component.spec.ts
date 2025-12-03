@@ -32,12 +32,14 @@ describe('ItemsComponent', () => {
     }).compileComponents();
   });
 
+  //component creates without errors
   it('should create', () => {
     const fixture = TestBed.createComponent(ItemsComponent);
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
+  //on initialization, reads withlistID and name from route, and loads items
   it('should load wishlist id, name, and items on init', () => {
     const fixture = TestBed.createComponent(ItemsComponent);
     const component = fixture.componentInstance;
@@ -50,6 +52,7 @@ describe('ItemsComponent', () => {
     expect(component.items).toEqual([{ _id: '1', name: 'Item 1', price: 10 }]);
   });
 
+  //service gets called with the right data when adding an item
   it('should call the service when adding an item', () => {
     const fixture = TestBed.createComponent(ItemsComponent);
     const component = fixture.componentInstance;
@@ -76,6 +79,7 @@ describe('ItemsComponent', () => {
     );
   });
 
+  //form resets after item added successfully
   it('should reset newItem after a successful add', () => {
     const fixture = TestBed.createComponent(ItemsComponent);
     const component = fixture.componentInstance;
@@ -101,5 +105,17 @@ describe('ItemsComponent', () => {
       itemLink: '',
       description: '',
     });
+  });
+
+  //service gets called with the correct item ID when deleting an item
+  it('should call the service when deleting an item', () => {
+    const fixture = TestBed.createComponent(ItemsComponent);
+    const component = fixture.componentInstance;
+
+    component.selectedItem = { _id: '1', name: 'Test Item', price: 10 };
+
+    component.deleteItem();
+
+    expect(wishlistServiceMock.deleteItem).toHaveBeenCalledWith('1');
   });
 });
