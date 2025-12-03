@@ -27,7 +27,7 @@ describe('WishlistsComponent', () => {
       )
     };
 
-    //fake auth service that returns a correct user ID
+    //fake auth service
     authServiceMock = {
       getCurrentUserId: jest.fn().mockReturnValue('user123'),
     };
