@@ -6,7 +6,6 @@ describe('WishlistproxyService', () => {
   let service: WishlistproxyService;
   let httpMock: HttpTestingController;
 
-  // Must match hostUrl in wishlistproxy.service.ts
   const BASE_URL = 'http://localhost:3000/api';
 
   beforeEach(() => {
@@ -41,9 +40,7 @@ describe('WishlistproxyService', () => {
       actual = lists;
     });
 
-    const req = httpMock.expectOne(
-      `${BASE_URL}/wishlists/user/${userId}`
-    );
+    const req = httpMock.expectOne(`${BASE_URL}/wishlists/user/${userId}`);
     expect(req.request.method).toBe('GET');
 
     // Respond with fake data
@@ -65,9 +62,7 @@ describe('WishlistproxyService', () => {
       actual = items;
     });
 
-    const req = httpMock.expectOne(
-      `${BASE_URL}/wishlists/${listId}/items`
-    );
+    const req = httpMock.expectOne(`${BASE_URL}/wishlists/${listId}/items`);
     expect(req.request.method).toBe('GET');
 
     req.flush(mockResponse);
@@ -86,9 +81,7 @@ describe('WishlistproxyService', () => {
       actual = res;
     });
 
-    const req = httpMock.expectOne(
-      `${BASE_URL}/wishlists/${listId}/items`
-    );
+    const req = httpMock.expectOne(`${BASE_URL}/wishlists/${listId}/items`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(newItem);
 
@@ -107,9 +100,7 @@ describe('WishlistproxyService', () => {
       actual = res;
     });
 
-    const req = httpMock.expectOne(
-      `${BASE_URL}/items/${itemId}`
-    );
+    const req = httpMock.expectOne(`${BASE_URL}/items/${itemId}`);
     expect(req.request.method).toBe('DELETE');
 
     req.flush(mockResponse);
