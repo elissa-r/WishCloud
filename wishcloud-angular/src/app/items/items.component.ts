@@ -20,13 +20,18 @@ export class ItemsComponent {
   items: any[] = [];
   selectedItem: any = null;
 
-
-  newItem = {
+  newItem: {
+    name: string;
+    price: number | null;
+    photoLink: string;
+    itemLink: string;
+    description: string;
+  } = {
     name: '',
     price: null,
     photoLink: '',
     itemLink: '',
-    description: ''
+    description: '',
   };
 
   defaultImage =
