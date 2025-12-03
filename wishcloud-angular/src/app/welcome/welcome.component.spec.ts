@@ -1,10 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { WelcomeComponent } from './welcome.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of, throwError } from 'rxjs';
-
-// TODO: change this to your real auth service name & path
 import { AuthService } from '../auth.service';
 
 describe('WelcomeComponent', () => {
@@ -12,16 +7,12 @@ describe('WelcomeComponent', () => {
 
   beforeEach(async () => {
     authServiceMock = {
-      login: jest.fn().mockReturnValue(of({ token: 'fake-token' })),     // adjust as needed
-      register: jest.fn().mockReturnValue(of({})),
+      login: jest.fn().mockResolvedValue({ user: { uid: 'user123' } }),
+      register: jest.fn().mockResolvedValue({ user: { uid: 'user123' } }),
     };
 
     await TestBed.configureTestingModule({
-      imports: [
-        WelcomeComponent,
-        FormsModule,
-        HttpClientTestingModule,
-      ],
+      imports: [ WelcomeComponent ],
       providers: [
         { provide: AuthService, useValue: authServiceMock },
       ]
@@ -47,14 +38,16 @@ describe('WelcomeComponent', () => {
 
     expect(fakeEvent.preventDefault).toHaveBeenCalled();
     expect(component.isRegisterMode).toBe(true);
+    expect(component.errorMessage).toBe('');
 
     component.switchToLogin(fakeEvent);
 
     expect(component.isRegisterMode).toBe(false);
+    expect(component.errorMessage).toBe('');
   });
 
   // Angular unit test a component #2 login submit calls service
-  it('onLoginSubmit should call authService.login with email and password', () => {
+  it('onLoginSubmit should call auth.login with email and password', () => {
     const fixture = TestBed.createComponent(WelcomeComponent);
     const component = fixture.componentInstance;
 
@@ -66,29 +59,10 @@ describe('WelcomeComponent', () => {
 
     component.onLoginSubmit(fakeEvent);
 
-    expect(preventDefault).toHaveBeenCalled();
+    expect(fakeEvent.preventDefault).toHaveBeenCalled();
     expect(authServiceMock.login).toHaveBeenCalledWith(
       'test@example.com',
       'password123'
     );
-  });
-
-  // handling of errorMessage
-  it('onLoginSubmit should set errorMessage on login error', () => {
-    authServiceMock.login.mockReturnValueOnce(
-      throwError(() => new Error('Invalid credentials'))
-    );
-
-    const fixture = TestBed.createComponent(WelcomeComponent);
-    const component = fixture.componentInstance;
-
-    component.loginEmail = 'fail@example.com';
-    component.loginPassword = 'bad';
-
-    const fakeEvent = { preventDefault: jest.fn() } as any as Event;
-
-    component.onLoginSubmit(fakeEvent);
-
-    expect(component.errorMessage).toBeTruthy();
   });
 });

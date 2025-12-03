@@ -1,7 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { ItemsComponent } from './items.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { WishlistproxyService } from '../wishlistproxy.service';
 import { of } from 'rxjs';
@@ -19,11 +17,7 @@ describe('ItemsComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [
-        ItemsComponent,
-        HttpClientTestingModule,
-        RouterTestingModule
-      ],
+      imports: [ ItemsComponent],
       providers: [
         { provide: WishlistproxyService, useValue: wishlistServiceMock },
         {
