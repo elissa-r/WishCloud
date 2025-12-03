@@ -79,14 +79,13 @@ describe('WishlistsComponent', () => {
 
     expect(fakeEvent.preventDefault).toHaveBeenCalled();
 
-    // adjust createWishlist / body structure to match your actual code
     expect(wishlistServiceMock.createWishlist).toHaveBeenCalledWith(
       expect.objectContaining({
         name: 'New List',
         photoUrl: 'photo',
-      budget: 100,
-      date: '2025-12-25',
-      userID: 'userABC',
+        budget: 100,
+        date: '2025-12-25',
+        userID: 'userABC',
       }),
     );
   });
