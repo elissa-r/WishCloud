@@ -3,10 +3,10 @@ module.exports = {
   preset: 'jest-preset-angular',
   testEnvironment: 'jsdom',
 
-  // Run Angular setup after env is ready
+  // Run our setup file after Jest's environment is ready
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 
-  // Look for your Angular spec files
+  // Look for Angular spec files
   testMatch: ['<rootDir>/src/app/**/*.spec.ts'],
 
   transform: {
