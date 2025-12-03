@@ -2,9 +2,8 @@ import { AuthService } from './auth.service';
 
 // Mocks for Firebase SDK
 const initializeAppMock = jest.fn().mockReturnValue({ app: 'fake-app' });
-const getAuthMock = jest.fn().mockReturnValue({
-  currentUser: { uid: 'user123' }, // default “logged in” user
-});
+const fakeAuthInstance = { currentUser: { uid: 'user123' } };
+const getAuthMock = jest.fn().mockReturnValue(fakeAuthInstance);
 const signInWithEmailAndPasswordMock = jest.fn();
 const createUserWithEmailAndPasswordMock = jest.fn();
 
@@ -33,13 +32,18 @@ describe('AuthService', () => {
     service = new AuthService();
   });
 
+  it('should initialize Firebase app and auth on construction', () => {
+    expect(initializeAppMock).toHaveBeenCalledTimes(1);
+    expect(getAuthMock).toHaveBeenCalledTimes(1);
+  });
+
   it('login should call signInWithEmailAndPassword with auth, email, and password', async () => {
     signInWithEmailAndPasswordMock.mockResolvedValue({ user: { uid: 'abc' } });
 
     await service.login('test@example.com', 'password123');
 
     expect(signInWithEmailAndPasswordMock).toHaveBeenCalledWith(
-      expect.any(Object), // the auth instance
+      fakeAuthInstance,
       'test@example.com',
       'password123'
     );
@@ -51,7 +55,7 @@ describe('AuthService', () => {
     await service.register('reg@example.com', 'pw');
 
     expect(createUserWithEmailAndPasswordMock).toHaveBeenCalledWith(
-      expect.any(Object),
+      fakeAuthInstance,
       'reg@example.com',
       'pw'
     );
@@ -60,5 +64,15 @@ describe('AuthService', () => {
   it('getCurrentUserId should return uid when currentUser is set', () => {
     const uid = service.getCurrentUserId();
     expect(uid).toBe('user123');
+  });
+
+  it('getCurrentUserId should return null when currentUser is null', () => {
+    (fakeAuthInstance as any).currentUser = null;
+
+    const uid = service.getCurrentUserId();
+    expect(uid).toBeNull();
+
+    // restore
+    (fakeAuthInstance as any).currentUser = { uid: 'user123' };
   });
 });
