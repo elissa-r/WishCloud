@@ -1,24 +1,17 @@
+// jest.config.cjs
 /** @type {import('jest').Config} */
+
+const { createCjsPreset } = require('jest-preset-angular/presets');
+
+const jestPresetAngular = createCjsPreset();
+
 module.exports = {
-  preset: 'jest-preset-angular',
-  testEnvironment: 'jsdom',
+  // Start from the Angular Jest preset
+  ...jestPresetAngular,
 
-  // Run our setup file after Jest's environment is ready
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-
-  // Look for Angular spec files
+  // Where your Angular specs live
   testMatch: ['<rootDir>/src/app/**/*.spec.ts'],
 
-  transform: {
-    '^.+\\.(ts|mjs|js|html)$': [
-      'ts-jest',
-      {
-        tsconfig: '<rootDir>/tsconfig.spec.json',
-        useESM: true,
-      },
-    ],
-  },
-
-  // Let Jest transform Angular's ESM packages
-  transformIgnorePatterns: ['node_modules/(?!@angular|rxjs|tslib/)'],
+  // Run our setup after Jest env is ready
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 };
