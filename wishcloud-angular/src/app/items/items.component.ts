@@ -23,13 +23,18 @@ export class ItemsComponent {
   shareUrl: string | null = null;
 
 
-
-  newItem = {
+  newItem: {
+    name: string;
+    price: number | null;
+    photoLink: string;
+    itemLink: string;
+    description: string;
+  } = {
     name: '',
     price: null,
     photoLink: '',
     itemLink: '',
-    description: ''
+    description: '',
   };
 
   defaultImage =
