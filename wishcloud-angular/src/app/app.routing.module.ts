@@ -4,9 +4,14 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { WishlistsComponent } from './wishlists/wishlists.component';
 import { ItemsComponent } from './items/items.component';
 
+
 export const routes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'list', component: WishlistsComponent },
-  { path: 'items/:id', component: ItemsComponent }
-
+  { path: 'items/:id', component: ItemsComponent },
+  {
+  path: 'shared/:id',
+  loadComponent: () =>
+    import('./shared/shared.component').then(m => m.SharedComponent)
+},
 ];
