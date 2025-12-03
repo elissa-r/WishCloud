@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { WishlistproxyService } from './wishlistproxy.service';
-import { HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('WishlistproxyService', () => {
   let service: WishlistproxyService;
@@ -10,7 +10,8 @@ describe('WishlistproxyService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: []     
+      imports: [HttpClientTestingModule],
+      providers: [WishlistproxyService],
     });
 
     service = TestBed.inject(WishlistproxyService);
