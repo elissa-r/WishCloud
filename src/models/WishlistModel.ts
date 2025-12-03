@@ -2,11 +2,11 @@ import mongoose from 'mongoose';
 
 const wishlistSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  listId: Number,
+  listId: { type: Number },
   userID: { type: String, required: true },
-  photoLink: String,
-  date: Date,
-  budget: Number,
+  photoLink: { type: String },
+  date: { type: Date } ,
+  budget: { type: Number },
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }],
   shareId: { type: String, default: null }
 });
