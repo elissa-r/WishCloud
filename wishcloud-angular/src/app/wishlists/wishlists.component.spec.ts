@@ -84,6 +84,6 @@ describe('WishlistsComponent', () => {
       budget: 100,
       date: '2025-12-25',
       userID: 'userABC',
-    );
+    });
   });
 });
