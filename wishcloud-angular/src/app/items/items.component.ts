@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { WishlistproxyService } from '../wishlistproxy.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 declare var bootstrap: any;
 
 
@@ -19,6 +20,8 @@ export class ItemsComponent {
   wishlistName = '';
   items: any[] = [];
   selectedItem: any = null;
+  shareUrl: string | null = null;
+
 
 
   newItem = {
@@ -104,5 +107,27 @@ export class ItemsComponent {
         modal.hide();
       });
   }
+
+  generateShareLink() {
+  if (!this.wishlistId) return;
+
+  this.wishlistService.generateShareLink(this.wishlistId).subscribe({
+    next: (res) => {
+      // Force the frontend port (Angular)
+      this.shareUrl = `http://localhost:4200/shared/${this.wishlistId}?name=${this.wishlistName}`;
+    },
+    error: (err) => {
+      console.error('Share link error:', err);
+    }
+  });
+}
+
+  copyShareUrl() {
+  if (!this.shareUrl) return;
+  
+  navigator.clipboard.writeText(this.shareUrl);
+  alert('Link copied!');
+  }
+
 
 }

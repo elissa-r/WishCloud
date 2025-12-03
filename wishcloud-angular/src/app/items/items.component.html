@@ -1,5 +1,3 @@
-
-
 <!-- ADD ITEM MODAL -->
 <div 
   class="modal fade" 
@@ -72,14 +70,38 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold">{{ wishlistName }}</h2>
 
-    <button 
-      class="btn btn-pink px-4"
-      data-bs-toggle="modal"
-      data-bs-target="#addItemModal">
-      + Add Item
-    </button>
+    <div class="d-flex gap-2">
+      <!-- SHARE BUTTON -->
+      <button 
+        class="btn btn-outline-pink px-4"
+        (click)="generateShareLink()">
+        Share Wishlist
+      </button>
+
+      <!-- ADD ITEM BUTTON -->
+      <button 
+        class="btn btn-pink px-4"
+        data-bs-toggle="modal"
+        data-bs-target="#addItemModal">
+        + Add Item
+      </button>
+    </div>
   </div>
 
+  <!-- SHARE LINK BOX -->
+  <div *ngIf="shareUrl" class="share-box mb-4">
+    <div class="input-group">
+      <input 
+        type="text"
+        class="form-control"
+        [value]="shareUrl"
+        readonly
+      />
+      <button class="btn btn-pink" (click)="copyShareUrl()">Copy</button>
+    </div>
+  </div>
+
+  <!-- ITEMS -->
   <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let item of items">
       <div class="card h-100 position-relative">
@@ -103,6 +125,7 @@
       </div>
     </div>
   </div>
+
 </div>
 
 
@@ -132,4 +155,3 @@
     </div>
   </div>
 </div>
-

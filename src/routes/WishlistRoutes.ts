@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { Wishlist } from '../models/WishlistModel';
-import { Item } from '../models/ItemModel';   // <-- REQUIRED IMPORT
+import { Item } from '../models/ItemModel';   
+import { v4 as uuidv4 } from 'uuid'; //import for shareId generation
 
 export const wishlistRouter = Router();
 
@@ -108,6 +109,39 @@ wishlistRouter.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error while fetching wishlist.' });
   }
 });
+
+// SHARE WISHLIST - GENERATE SHAREABLE LINK
+wishlistRouter.post('/:id/share', async (req, res) => {
+  try {
+    const wishlistId = req.params.id;
+
+    if (!wishlistId) {
+      return res.status(400).json({ error: 'Missing wishlist id' });
+    }
+
+    const shareUrl = `${process.env.FRONTEND_URL}/wishlists/shared/${wishlistId}`;
+    
+    res.json({ shareUrl });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+// ACCESS SHARED WISHLIST VIA SHARE ID
+wishlistRouter.get('/share/:shareId', async (req, res) => {
+    try {
+        const wishlist = await Wishlist.findOne({ shareId: req.params.shareId })
+            .populate('items');
+
+        if (!wishlist) return res.status(404).json({ message: "Invalid share link" });
+
+        res.json(wishlist);
+    } catch (err: any) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 
 
 
