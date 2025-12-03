@@ -35,7 +35,7 @@
     "build": "tsc",
     "start": "node dist/AppServer.js",
     "dev": "ts-node src/AppServer.ts",
-    "test:angular": "cd wishcloud-angular && ng test",
+    "test:angular": "cd wishcloud-angular && npx ng test",
     "test:root": "jest --runInBand",
     "test": "npm run test:root && npm run test:angular"
   },
