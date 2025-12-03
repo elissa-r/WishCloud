@@ -9,14 +9,14 @@ describe('WishlistsComponent', () => {
   let authServiceMock: any;
 
   beforeEach(async () => {
+
+    //fake version of backend using jest
     wishlistServiceMock = {
-      // used in ngOnInit to load lists
       getListsIndex: jest.fn().mockReturnValue(of([
         { _id: 'w1', name: 'Birthday', photo: 'url1' },
         { _id: 'w2', name: 'Christmas', photo: 'url2' },
       ])),
-      createWishlist: jest.fn().mockReturnValue(
-        of({
+      createWishlist: jest.fn().mockReturnValue(of({
           _id: 'newId',
           name: 'New List',
           photoUrl: 'photo',
@@ -27,6 +27,7 @@ describe('WishlistsComponent', () => {
       )
     };
 
+    //fake auth service that returns a correct user ID
     authServiceMock = {
       getCurrentUserId: jest.fn().mockReturnValue('user123'),
     };
@@ -40,18 +41,19 @@ describe('WishlistsComponent', () => {
     }).compileComponents();
   });
 
+  //component creates without errors
   it('should create', () => {
     const fixture = TestBed.createComponent(WishlistsComponent);
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
-  // Wishlists component unit test #1 ngOnInit behavior
+  //loads lists for the current user
   it('should load lists on init for the current user', () => {
     const fixture = TestBed.createComponent(WishlistsComponent);
     const component = fixture.componentInstance;
 
-    fixture.detectChanges(); // let Angular run change detection
+    fixture.detectChanges();
 
     expect(wishlistServiceMock.getListsIndex).toHaveBeenCalled();
     expect(wishlistServiceMock.getListsIndex).toHaveBeenCalledWith('user123');
@@ -59,12 +61,12 @@ describe('WishlistsComponent', () => {
     expect(component.lists[0].name).toBe('Birthday');
   });
 
-  // Wishlists component unit test #2 onCreateWishlist calls service
+  //onCreateWishlist calls service with the new list data
   it('onCreateWishlist should build payload and call createWishlist', () => {
     const fixture = TestBed.createComponent(WishlistsComponent);
     const component = fixture.componentInstance;
 
-    // For this call, pretend the user ID is different
+    //for this call pretend the user ID is different
     authServiceMock.getCurrentUserId.mockReturnValue('userABC');
 
     component.newListName = 'New List';
