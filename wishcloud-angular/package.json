@@ -55,6 +55,6 @@
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.6",
     "typescript": "~5.9.2",
-    "zone.js": "^0.16.0"
+    "zone.js": "~0.15.1"
   }
 }
