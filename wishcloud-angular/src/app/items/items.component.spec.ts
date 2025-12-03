@@ -8,6 +8,8 @@ describe('ItemsComponent', () => {
   let wishlistServiceMock: any;
   
   beforeEach(async () => {
+
+    //fake version of backend using jest
      wishlistServiceMock = {
       getItemsForList: jest.fn().mockReturnValue(of([
         { _id: '1', name: 'Item 1', price: 10 },
@@ -23,8 +25,9 @@ describe('ItemsComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
+
+            //sets up route for component
             snapshot: {
-              // matches the way your component reads route + query params
               paramMap: convertToParamMap({ id: 'abc123' }),
               queryParamMap: convertToParamMap({ name: 'Birthday List' }),
             },
@@ -45,7 +48,6 @@ describe('ItemsComponent', () => {
     const fixture = TestBed.createComponent(ItemsComponent);
     const component = fixture.componentInstance;
 
-    // triggers ngOnInit
     fixture.detectChanges();
 
     expect(component.wishlistId).toBe('abc123');
@@ -57,6 +59,7 @@ describe('ItemsComponent', () => {
   });
 
   // Angular unit test a component #2
+  //fill a new item model, called add item, verfies that the correct item is added
   it('addItem should call service and reset newItem', () => {
     const fixture = TestBed.createComponent(ItemsComponent);
     const component = fixture.componentInstance;
