@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class WishlistproxyService {
 
-  private hostUrl = 'http://localhost:3000/api';
+  private hostUrl = 'http://192.168.0.20:3000/api';
 
   constructor(private http: HttpClient) {}
 
