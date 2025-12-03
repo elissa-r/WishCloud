@@ -8,6 +8,9 @@
 /**/*.js.map
 !/public/script.js
 !/public/dashboard.js
+!/src/Testing/user.test.js
+!/jest.config.js
+!/test.setup.js
 
 # Logs
 npm-debug.log*
