@@ -10,4 +10,8 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'todo-application2';
+
+  logout() {
+    window.location.href = '/';
+  }
 }

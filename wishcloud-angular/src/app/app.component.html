@@ -2,20 +2,23 @@
   <div class="container">
     <a class="navbar-brand" href="#">
       <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnmp4m6PRuWRYdsFVv-0t_5kHTQwUgqDn6Rw&s"
+        src="favicon.ico"
         alt="WishCloud Logo"
       />
       WishCloud
     </a>
 
     <div class="ms-auto">
-      <!-- For now this just stays on the welcome page; we can wire this later -->
-      <button id="openLoginBtn" type="button" class="btn">
-        Login
+      <button
+        id="openLoginBtn"
+        type="button"
+        class="btn"
+        (click)="logout()"
+      >
+        Logout
       </button>
     </div>
   </div>
 </nav>
 
-<!-- This is where the routed pages (welcome, lists, items) appear -->
 <router-outlet></router-outlet>

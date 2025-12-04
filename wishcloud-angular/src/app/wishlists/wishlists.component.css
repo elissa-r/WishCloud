@@ -37,3 +37,27 @@
   border-color: #ff8fb1;
   box-shadow: 0 0 5px #ff8fb1;
 }
+
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: #ffffffd8;
+  color: #333;
+  font-size: 20px;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  line-height: 0;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.2s ease-in-out;
+}
+
+.delete-btn:hover {
+  background: #ff7ebc;
+  color: #fff;
+  transform: scale(1.05);
+}
+

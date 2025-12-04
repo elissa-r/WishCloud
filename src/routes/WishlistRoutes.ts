@@ -19,6 +19,7 @@ wishlistRouter.post('/', async (req, res) => {
 });
 
 
+
 // GET ALL WISHLISTS
 wishlistRouter.get('/', async (req, res) => {
   try {
@@ -96,20 +97,6 @@ wishlistRouter.get('/:id/items', async (req, res) => {
   }
 });
 
-// GET WISHLIST BY ID
-wishlistRouter.get('/:id', async (req, res) => {
-  try {
-    const wishlist = await Wishlist.findById(req.params.id).populate('items');
-    if (!wishlist) {
-      return res.status(404).json({ message: 'Wishlist not found' });
-    }
-    res.status(200).json(wishlist);
-  } catch (err) {
-    console.error('Error fetching wishlist by ID:', err);
-    res.status(500).json({ message: 'Server error while fetching wishlist.' });
-  }
-});
-
 // SHARE WISHLIST - GENERATE SHAREABLE LINK
 wishlistRouter.post('/:id/share', async (req, res) => {
   try {
@@ -140,6 +127,38 @@ wishlistRouter.get('/share/:shareId', async (req, res) => {
     } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
+});
+
+// DELETE WISHLIST BY ID
+wishlistRouter.delete('/:id', async (req, res) => {
+  try {
+    const wishlistId = req.params.id;
+
+    const deleted = await Wishlist.findByIdAndDelete(wishlistId);
+
+    if (!deleted) {
+      return res.status(404).json({ message: 'Wishlist not found' });
+    }
+
+    res.sendStatus(204); // success, no content needed
+  } catch (err) {
+    console.error('Error deleting wishlist:', err);
+    res.status(500).json({ message: 'Server error while deleting wishlist.' });
+  }
+});
+
+// GET WISHLIST BY ID
+wishlistRouter.get('/:id', async (req, res) => {
+  try {
+    const wishlist = await Wishlist.findById(req.params.id).populate('items');
+    if (!wishlist) {
+      return res.status(404).json({ message: 'Wishlist not found' });
+    }
+    res.status(200).json(wishlist);
+  } catch (err) {
+    console.error('Error fetching wishlist by ID:', err);
+    res.status(500).json({ message: 'Server error while fetching wishlist.' });
+  }
 });
 
 

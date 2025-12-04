@@ -41,13 +41,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elissa-r/WishCloud.git"
+    "url": "git+https://github.com/Aliviaaz/WishCloud"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/elissa-r/WishCloud/issues"
+    "url": "https://github.com/Aliviaaz/WishCloud/issues"
   },
-  "homepage": "https://github.com/elissa-r/WishCloud#readme"
+  "homepage": "https://github.com/Aliviaaz/WishCloud#readme"
 }

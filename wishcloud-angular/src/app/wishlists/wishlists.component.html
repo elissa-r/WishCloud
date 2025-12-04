@@ -1,6 +1,9 @@
 <div class="container py-5">
+
+  <!-- Title + Create Button, testing -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold text-dark">Your Wishlists</h2>
+
     <button
       class="btn btn-pink px-4"
       data-bs-toggle="modal"
@@ -10,40 +13,56 @@
     </button>
   </div>
 
-  <!-- Wishlist cards -->
+  <!-- Wishlist Cards -->
   <div class="row">
     <ng-container *ngIf="lists && lists.length > 0; else noLists">
+
       <div
         class="col-md-4 mb-4"
         *ngFor="let list of lists"
         (click)="goToList(list)"
         style="cursor: pointer"
       >
-        <div class="card h-100">
+        <div class="card h-100 shadow-sm border-0" style="border-radius: 12px;">
+
+          <!-- DELETE WISHLIST BUTTON -->
+          <button
+            class="delete-btn"
+            (click)="openDeleteWishlistModal(list); $event.stopPropagation()"
+          >
+            ✕
+          </button>
+          
           <img
             [src]="list.photoUrl || list.photo || defaultImage"
             class="card-img-top"
             alt="Wishlist image"
+            style="height: 200px; object-fit: cover; border-radius: 12px 12px 0 0;"
           />
+
           <div class="card-body">
-            <h5 class="card-title">{{ list.name }}</h5>
-            <p class="card-text text-muted mb-1">
+            <h5 class="card-title fw-bold">{{ list.name }}</h5>
+            <p class="card-text text-muted mb-2">
               {{ list.description || 'No description yet.' }}
             </p>
-            <p class="card-text mb-0">
+
+            <p class="card-text mb-1">
               <small *ngIf="list.budget">Budget: ${{ list.budget }}</small>
             </p>
+
             <p class="card-text">
               <small *ngIf="list.date">Date: {{ list.date | date }}</small>
             </p>
           </div>
+
         </div>
       </div>
+
     </ng-container>
   </div>
 
   <ng-template #noLists>
-    <p class="text-muted">No wishlists yet.</p>
+    <p class="text-muted">You don't have any wishlists yet.</p>
   </ng-template>
 </div>
 
@@ -57,20 +76,17 @@
 >
   <div class="modal-dialog">
     <div class="modal-content p-3">
+
       <div class="modal-header border-0">
         <h5 class="modal-title fw-bold" id="wishlistModalLabel">
           Create a New Wishlist
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body">
         <form (submit)="onCreateWishlist($event)">
+
           <div class="mb-3">
             <label class="form-label">List Name</label>
             <input
@@ -99,8 +115,8 @@
               type="number"
               [(ngModel)]="newListBudget"
               name="newListBudget"
-              class="form-control"
               min="0"
+              class="form-control"
             />
           </div>
 
@@ -117,8 +133,40 @@
           <button type="submit" class="btn btn-pink w-100 mt-2">
             Save Wishlist
           </button>
+
         </form>
       </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- DELETE WISHLIST CONFIRMATION MODAL -->
+<div class="modal fade" id="deleteWishlistModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">Delete Wishlist</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>
+          Are you sure you want to delete
+          <strong>{{ selectedWishlist?.name }}</strong>?
+        </p>
+
+        <div class="d-flex justify-content-end gap-2">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button class="btn btn-danger" (click)="deleteWishlist()">
+            Delete
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
