@@ -38,12 +38,17 @@ jobs:
       # Commenting out Angular tests to see if deployment will work better without it
       # - name: Run Angular tests
         # run: npm run test:angular
-    
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          # changed the path from . to be more specific
+          path: |
+            dist/
+            wishcloud-angular/dist/wishcloud-angular/
+            package.json
+            package-lock.json
 
 
   deploy:
@@ -75,4 +80,5 @@ jobs:
           package: .
 
           
+
 
