@@ -31,12 +31,17 @@ jobs:
         run: |
           cd wishcloud-angular
           npm install
-
+          
       - name: Build Angular frontend
+        working-directory: wishcloud-angular
         run: |
-          cd wishcloud-angular
-          npx ng build --configuration production
+          npx ng build --configuration production --output-path=../dist/angular
 
+      - name: Copy Angular build to root /dist/angular
+        run: |
+          mkdir -p dist/angular
+          cp -r dist/angular/* dist/angular/
+          
       - name: Build backend
         run: |
           npm run build
@@ -80,3 +85,4 @@ jobs:
           package: .
 
           
+
