@@ -4,6 +4,8 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup
 } from 'firebase/auth';
 import { firebaseConfig } from './firebase-config';
 
@@ -18,6 +20,12 @@ export class AuthService {
 
   register(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password);
+  }
+
+  // GOOGLE PROVIDER
+  loginWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(this.auth, provider);
   }
 
   getCurrentUserId(): string | null {

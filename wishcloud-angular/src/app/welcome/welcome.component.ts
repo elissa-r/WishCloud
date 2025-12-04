@@ -47,7 +47,6 @@ export class WelcomeComponent {
 
     try {
       await this.auth.login(this.loginEmail, this.loginPassword);
-      // On success, go to the dashboard
       this.router.navigate(['/list']);
     } catch (err: any) {
       console.error(err);
@@ -61,11 +60,23 @@ export class WelcomeComponent {
 
     try {
       await this.auth.register(this.regEmail, this.regPassword);
-      // Could also store 'regName' in Firestore here later
       this.router.navigate(['/list']);
     } catch (err: any) {
       console.error(err);
       this.errorMessage = err?.message || 'Registration failed';
+    }
+  }
+
+  // ⭐⭐⭐ GOOGLE SIGN-IN ADDED HERE ⭐⭐⭐
+  async loginWithGoogle(): Promise<void> {
+    this.errorMessage = '';
+
+    try {
+      await this.auth.loginWithGoogle();
+      this.router.navigate(['/list']);
+    } catch (err: any) {
+      console.error(err);
+      this.errorMessage = err?.message || 'Google login failed';
     }
   }
 }

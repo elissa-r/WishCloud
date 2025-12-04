@@ -1,8 +1,22 @@
 <section class="auth-wrap">
   <div class="auth-card">
+
     <!-- Login -->
     <div *ngIf="!isRegisterMode">
       <h2 class="auth-title">Welcome Back</h2>
+
+      <!-- Google Login -->
+      <button type="button"
+              class="google-btn w-100 mt-3"
+              (click)="loginWithGoogle()">
+        <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
+             alt="Google"
+             class="google-icon">
+        Continue with Google
+      </button>
+
+      <div class="divider"><span>or</span></div>
+
       <form (submit)="onLoginSubmit($event)" novalidate>
         <div class="mb-3">
           <label class="form-label">Email</label>
@@ -15,6 +29,7 @@
             required
           />
         </div>
+
         <div class="mb-2">
           <label class="form-label">Password</label>
           <input
@@ -44,6 +59,19 @@
     <!-- Register -->
     <div *ngIf="isRegisterMode">
       <h2 class="auth-title">Create Account</h2>
+
+      <!-- Google Login -->
+      <button type="button"
+              class="google-btn w-100 mt-3"
+              (click)="loginWithGoogle()">
+        <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png"
+             alt="Google"
+             class="google-icon">
+        Continue with Google
+      </button>
+
+      <div class="divider"><span>or</span></div>
+
       <form (submit)="onRegisterSubmit($event)" novalidate>
         <div class="mb-3">
           <label class="form-label">Name</label>
@@ -56,6 +84,7 @@
             required
           />
         </div>
+
         <div class="mb-3">
           <label class="form-label">Email</label>
           <input
@@ -67,6 +96,7 @@
             required
           />
         </div>
+
         <div class="mb-2">
           <label class="form-label">Password</label>
           <input
@@ -92,5 +122,6 @@
         </p>
       </form>
     </div>
+
   </div>
 </section>
