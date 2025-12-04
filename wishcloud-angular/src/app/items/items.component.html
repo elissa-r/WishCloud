@@ -1,10 +1,17 @@
+<!-- BACK BUTTON -->
+<div class="container mt-4">
+  <button class="btn btn-pink back-btn mb-3 shadow-sm" (click)="goBack()">
+    ← Back
+  </button>
+</div>
+
 <!-- ADD ITEM MODAL -->
 <div 
   class="modal fade" 
   id="addItemModal" 
   tabindex="-1"
   aria-hidden="true">
-  
+
   <div class="modal-dialog">
     <div class="modal-content p-3">
 
@@ -65,12 +72,17 @@
   </div>
 </div>
 
-<div class="container mt-5">
 
+
+<!-- PAGE CONTENT -->
+<div class="container mt-4">
+
+  <!-- TITLE + SHARE + ADD BUTTON -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold">{{ wishlistName }}</h2>
 
     <div class="d-flex gap-2">
+
       <!-- SHARE BUTTON -->
       <button 
         class="btn btn-outline-pink px-4"
@@ -85,12 +97,14 @@
         data-bs-target="#addItemModal">
         + Add Item
       </button>
+
     </div>
   </div>
 
+
   <!-- SHARE LINK BOX -->
   <div *ngIf="shareUrl" class="share-box mb-4">
-    <div class="input-group">
+    <div class="input-group shadow-sm">
       <input 
         type="text"
         class="form-control"
@@ -101,55 +115,88 @@
     </div>
   </div>
 
-  <!-- ITEMS -->
+
+  <!-- ITEM GRID -->
   <div class="row">
+
     <div class="col-md-4 mb-4" *ngFor="let item of items">
-      <div class="card h-100 position-relative">
+      <div class="card h-100 position-relative shadow-sm border-0" style="border-radius: 12px;">
 
         <!-- DELETE BUTTON -->
-        <button class="delete-btn" (click)="openDeleteModal(item)">
+        <button 
+          class="delete-btn"
+          (click)="openDeleteModal(item)"
+          style="
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: none;
+            background: #ffffffd8;
+            color: #333;
+            font-size: 20px;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            line-height: 0;
+          ">
           ✕
         </button>
 
-        <img [src]="item.photoLink || defaultImage" class="card-img-top" />
+        <img 
+          [src]="item.photoLink || defaultImage"
+          class="card-img-top"
+          style="height: 200px; object-fit: cover; border-radius: 12px 12px 0 0;"
+        />
 
         <div class="card-body">
-          <h5>{{ item.name }}</h5>
-          <p class="text-muted">${{ item.price }}</p>
-          <p>{{ item.description }}</p>
+          <h5 class="fw-bold">{{ item.name }}</h5>
 
-          <a *ngIf="item.itemLink" [href]="item.itemLink" target="_blank">
-            View Item
+          <p class="text-muted mb-1" *ngIf="item.price">
+            ${{ item.price }}
+          </p>
+
+          <p class="mb-2" *ngIf="item.description">
+            {{ item.description }}
+          </p>
+
+          <a 
+            *ngIf="item.itemLink"
+            [href]="item.itemLink"
+            target="_blank"
+            class="text-pink fw-semibold">
+            View Item →
           </a>
         </div>
+
       </div>
     </div>
+
   </div>
 
 </div>
+
+
 
 
 <!-- DELETE CONFIRMATION MODAL -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content p-3">
+
       <div class="modal-header border-0">
         <h5 class="modal-title fw-bold">Remove Item</h5>
         <button class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body">
+
         <p>Are you sure you want to remove <strong>{{ selectedItem?.name }}</strong>?</p>
 
         <div class="d-flex justify-content-end gap-2">
-          <button class="btn btn-secondary" data-bs-dismiss="modal">
-            Cancel
-          </button>
-
-          <button class="btn btn-danger" (click)="deleteItem()">
-            Remove
-          </button>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-danger" (click)="deleteItem()">Remove</button>
         </div>
+
       </div>
 
     </div>

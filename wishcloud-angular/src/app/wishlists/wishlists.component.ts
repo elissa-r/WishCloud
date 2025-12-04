@@ -19,7 +19,7 @@ export class WishlistsComponent {
 
   // Default image if a list has no photo
   defaultImage =
-    'https://images.pexels.com/photos/1488463/pexels-photo-1488463.jpeg?auto=compress&cs=tinysrgb&w=800';
+    'https://t4.ftcdn.net/jpg/06/18/54/93/360_F_618549372_DZRjfLUDNjNPI5XE7hPfGEiEkCWr0bwp.jpg';
 
   // New wishlist form fields
   newListName = '';

@@ -52,3 +52,23 @@
   transform: scale(1.1);
 }
 
+.btn-pink {
+  background-color: #ff7ebc;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: 0.2s ease-in-out;
+}
+
+.btn-pink:hover {
+  background-color: #ff66b0;
+  color: white;
+}
+
+.back-btn {
+  margin-top: 10px;
+}
+
+

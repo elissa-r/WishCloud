@@ -9,13 +9,16 @@
     </a>
 
     <div class="ms-auto">
-      <!-- For now this just stays on the welcome page; we can wire this later -->
-      <button id="openLoginBtn" type="button" class="btn">
-        Login
+      <button
+        id="openLoginBtn"
+        type="button"
+        class="btn"
+        (click)="logout()"
+      >
+        Logout
       </button>
     </div>
   </div>
 </nav>
 
-<!-- This is where the routed pages (welcome, lists, items) appear -->
 <router-outlet></router-outlet>
