@@ -52,7 +52,7 @@ jobs:
           name: node-app
           path: |
             dist/
-            wishcloud-angular/dist/wishcloud-angular/
+            dist/angular/
             package.json
             package-lock.json
 
@@ -85,5 +85,6 @@ jobs:
           package: .
 
           
+
 
 
