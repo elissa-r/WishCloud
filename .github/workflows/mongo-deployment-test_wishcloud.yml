@@ -3,11 +3,10 @@
 
 name: Build and deploy Node.js app to Azure Web App - WishCloud
 
-# Same workflow as on deployment branch
 on:
   push:
     branches:
-      - main
+      - mongo-deployment-test
   workflow_dispatch:
 
 jobs:
@@ -85,3 +84,9 @@ jobs:
           app-name: 'WishCloud'
           slot-name: 'Production'
           package: .
+
+          
+
+
+
+
