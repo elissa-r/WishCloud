@@ -21,18 +21,18 @@ class App {
   }
 
   private middleware(): void {
-    this.express.use(cors({
-  origin: [
-    'http://localhost:4200',
-    'https://wishcloud.azurewebsites.net'
-  ],
-  methods: 'GET,POST,PUT,DELETE',
-  credentials: true
-}));
+  this.express.use(cors({
+    origin: [
+      'http://localhost:4200',
+      'https://wishcloud.azurewebsites.net'
+    ],
+    methods: 'GET,POST,PUT,DELETE',
+    credentials: true
+  }));
 
-    this.express.use(bodyParser.json());
-    this.express.use(express.static('public'));
-  }
+  this.express.use(bodyParser.json());
+  this.express.use(express.static('public'));
+}
 
   private routes(): void {
     //this.express.use('/api/auth', authRouter);
