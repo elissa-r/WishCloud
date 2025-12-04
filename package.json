@@ -30,7 +30,7 @@
   "name": "wishcloud",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/AppServer.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/AppServer.js",
