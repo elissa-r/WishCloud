@@ -30,7 +30,7 @@ class App {
     this.express.use(express.static(path.join(__dirname, 'angular')));
 
     // Fallback for Angular client-side routing
-    this.express.get('*', (req, res) => {
+    this.express.get('/*', (req, res) => {
       res.sendFile(path.join(__dirname, 'angular', 'index.html'));
     });
   }
