@@ -36,12 +36,14 @@ class App {
     this.express.use('/api/items', itemRouter);
 
     // Serve Angular frontend static files
-    this.express.use(express.static(path.join(__dirname, 'angular')));
+    this.express.use(express.static(path.join(__dirname, 'angular', 'browser')));
 
     // Fallback for Angular routing
     this.express.use((req, res) => {
-      if (req.path.startsWith('/api')) return res.status(404).send('API route not found');
-      res.sendFile(path.join(__dirname, 'angular', 'index.html'));
+      if (req.path.startsWith('/api')) {
+        return res.status(404).send('API route not found');
+      }
+      res.sendFile(path.join(__dirname, 'angular', 'browser', 'index.html'));
     });
   }
 }
