@@ -23,17 +23,33 @@ jobs:
         with:
           node-version: '24.x'
 
-      - name: npm install, build, and test
-        run: |
+      - name: Install backend dependencies
+        run: | 
           npm install
-          npm run build --if-present
-          npm run test --if-present
+
+      - name: Install Angular dependencies
+        run: |
+          cd wishcloud-angular
+          npm install
+
+      - name: Build Angular frontend
+        run: |
+          cd wishcloud-angular
+          npx ng build --configuration production
+
+      - name: Build backend
+        run: |
+          npm run build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: |
+            dist/
+            wishcloud-angular/dist/wishcloud-angular/
+            package.json
+            package-lock.json
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,4 +78,5 @@ jobs:
           app-name: 'WishCloud'
           slot-name: 'Production'
           package: .
+
           
