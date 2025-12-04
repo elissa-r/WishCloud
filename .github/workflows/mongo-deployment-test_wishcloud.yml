@@ -36,10 +36,6 @@ jobs:
         run: |
           cd wishcloud-angular
           npx ng build --configuration production
-          # Make sure backend dist/angular folder exists
-          mkdir -p ../dist/angular
-          # Copy Angular browser files to backend dist/angular
-          cp -r dist/angular/* ../dist/angular/
 
       - name: Build backend
         run: |
@@ -86,6 +82,7 @@ jobs:
           package: .
 
           
+
 
 
 
