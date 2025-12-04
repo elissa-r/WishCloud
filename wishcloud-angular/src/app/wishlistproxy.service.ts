@@ -41,6 +41,9 @@ export class WishlistproxyService {
   );
 }
 
+  deleteWishlist(id: string) {
+    return this.http.delete(`${this.hostUrl}/wishlists/${id}`);
+  }
 
 
 }
