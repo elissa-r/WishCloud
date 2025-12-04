@@ -26,11 +26,12 @@ class App {
     this.express.use('/api/wishlists', wishlistRouter);
     this.express.use('/api/items', itemRouter);
 
-    // Serve Angular frontend from dist/angular
+    // Serve Angular frontend static files
     this.express.use(express.static(path.join(__dirname, 'angular')));
 
-    // Fallback for Angular client-side routing
-    this.express.get('/*', (req, res) => {
+    // Fallback for Angular routing
+    this.express.use((req, res) => {
+      if (req.path.startsWith('/api')) return res.status(404).send('API route not found');
       res.sendFile(path.join(__dirname, 'angular', 'index.html'));
     });
   }
