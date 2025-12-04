@@ -45,6 +45,17 @@ class App {
       }
       res.sendFile(path.join(__dirname, 'angular', 'browser', 'index.html'));
     });
+
+    /* Adding back old version to force new commit / testing to see which one is better
+    // Serve Angular frontend static files
+    this.express.use(express.static(path.join(__dirname, 'angular')));
+
+    // Fallback for Angular routing
+    this.express.use((req, res) => {
+      if (req.path.startsWith('/api')) return res.status(404).send('API route not found');
+      res.sendFile(path.join(__dirname, 'angular', 'index.html'));
+    });
+    */
   }
 }
 
