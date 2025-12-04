@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class WishlistproxyService {
 
-  private hostUrl = 'https://wishcloud.azurewebsites.net/api';
+  private hostUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) {}
 
