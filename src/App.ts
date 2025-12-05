@@ -18,8 +18,8 @@ class App {
   private middleware(): void {
   this.express.use(cors({
     origin: [
-      'http://localhost:4200',
-      'https://wishcloud.azurewebsites.net'
+      'http://localhost:4200', //local
+      'https://wishcloud.azurewebsites.net' //azure
     ],
     methods: 'GET,POST,PUT,DELETE',
     credentials: true

@@ -11,10 +11,10 @@ import { firebaseConfig } from './firebase-config';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private app = initializeApp(firebaseConfig);
-  private auth = getAuth(this.app);
+  private app = initializeApp(firebaseConfig); //initialize firebase 
+  private auth = getAuth(this.app); //connects to frontend
 
-  login(email: string, password: string) {
+  login(email: string, password: string) { //normal login/registration
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
@@ -22,9 +22,9 @@ export class AuthService {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  // GOOGLE PROVIDER
+  // GOOGLE METHOD
   loginWithGoogle() {
-    const provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider(); //using OAuth provider
     return signInWithPopup(this.auth, provider);
   }
 
